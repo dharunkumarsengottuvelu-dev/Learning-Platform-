@@ -37,7 +37,8 @@ interface SubmitResult {
 }
 
 export default function CodeEditor({ problem }: { problem: Problem }) {
-  const [language, setLanguage] = useState(problem.enabledLanguages[0] || "python");
+  const languages = JSON.parse(problem.enabledLanguages || "[]");
+  const [language, setLanguage] = useState(languages[0] || "python");
   const [code, setCode] = useState(DEFAULT_CODE[language] || "// Write your solution here");
   const [activeTab, setActiveTab] = useState<"problem" | "output" | "result">("problem");
   const [customInput, setCustomInput] = useState(problem.sampleInput || "");
@@ -333,7 +334,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
             </button>
             {showLangMenu && (
               <div className="absolute top-full left-0 mt-1 bg-[#1a1a2e] border border-white/10 rounded-lg shadow-xl z-50 min-w-[140px] py-1">
-                {problem.enabledLanguages.map((lang) => (
+                {JSON.parse(problem.enabledLanguages || "[]").map((lang: string) => (
                   <button
                     key={lang}
                     onClick={() => handleLanguageChange(lang)}

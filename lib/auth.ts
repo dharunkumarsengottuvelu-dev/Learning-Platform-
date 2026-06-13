@@ -41,29 +41,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = credentials.email as string;
         const password = credentials.password as string;
 
-        // ==========================================
-        // HARDCODED DEMO LOGINS (No DB Required)
-        // ==========================================
-        if (email === "admin@tc.com" && password === "Admin@123") {
-          return {
-            id: "demo-admin-id",
-            name: "Demo Admin",
-            email: "admin@tc.com",
-            role: "SUPER_ADMIN",
-            photo: null,
-          };
-        }
-
-        if (email === "student1@tc.com" && password === "Student@123") {
-          return {
-            id: "demo-student-id",
-            name: "Demo Student",
-            email: "student1@tc.com",
-            role: "STUDENT",
-            photo: null,
-          };
-        }
-
         try {
           const user = await db.user.findUnique({
             where: { email },

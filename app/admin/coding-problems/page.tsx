@@ -57,14 +57,14 @@ export default async function AdminCodingProblemsPage() {
               <span>📤 {problem._count.submissions} submissions</span>
             </div>
 
-            <div className="flex flex-wrap gap-1 mb-3">
-              {problem.enabledLanguages.slice(0, 5).map((lang) => (
-                <span key={lang} className="text-[10px] bg-white/5 text-slate-400 px-1.5 py-0.5 rounded">
+            <div className="mt-4 flex flex-wrap gap-2">
+              {JSON.parse(problem.enabledLanguages || "[]").slice(0, 5).map((lang: string) => (
+                <span key={lang} className="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300 border border-white/5 capitalize">
                   {lang}
                 </span>
               ))}
-              {problem.enabledLanguages.length > 5 && (
-                <span className="text-[10px] text-slate-500">+{problem.enabledLanguages.length - 5}</span>
+              {JSON.parse(problem.enabledLanguages || "[]").length > 5 && (
+                <span className="text-[10px] text-slate-500">+{JSON.parse(problem.enabledLanguages || "[]").length - 5}</span>
               )}
             </div>
 

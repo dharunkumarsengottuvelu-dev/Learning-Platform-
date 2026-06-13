@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { db as prisma } from "../lib/db";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Seeding database...");
@@ -175,7 +173,7 @@ async function main() {
       marks: 10,
       timeLimit: 2,
       memoryLimit: 256,
-      enabledLanguages: ["python", "javascript", "java", "cpp", "c"],
+      enabledLanguages: JSON.stringify(["python", "javascript", "java", "cpp", "c"]),
     },
   });
 
@@ -196,7 +194,7 @@ async function main() {
       marks: 20,
       timeLimit: 2,
       memoryLimit: 256,
-      enabledLanguages: ["python", "javascript", "java", "cpp", "c", "typescript"],
+      enabledLanguages: JSON.stringify(["python", "javascript", "java", "cpp", "c", "typescript"]),
     },
   });
 
@@ -217,7 +215,7 @@ async function main() {
       marks: 10,
       timeLimit: 2,
       memoryLimit: 256,
-      enabledLanguages: ["python", "javascript", "java", "cpp", "c"],
+      enabledLanguages: JSON.stringify(["python", "javascript", "java", "cpp", "c"]),
     },
   });
   console.log("✅ Coding problems created: 3");
