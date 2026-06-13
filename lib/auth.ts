@@ -38,17 +38,40 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const email = credentials.email as string;
+        const password = credentials.password as string;
+
+        // ==========================================
+        // HARDCODED DEMO LOGINS (No DB Required)
+        // ==========================================
+        if (email === "admin@tc.com" && password === "Admin@123") {
+          return {
+            id: "demo-admin-id",
+            name: "Demo Admin",
+            email: "admin@tc.com",
+            role: "SUPER_ADMIN",
+            photo: null,
+          };
+        }
+
+        if (email === "student1@tc.com" && password === "Student@123") {
+          return {
+            id: "demo-student-id",
+            name: "Demo Student",
+            email: "student1@tc.com",
+            role: "STUDENT",
+            photo: null,
+          };
+        }
+
         try {
           const user = await db.user.findUnique({
-            where: { email: credentials.email as string },
+            where: { email },
           });
 
           if (!user || !user.password) return null;
 
-          const isValid = await bcrypt.compare(
-            credentials.password as string,
-            user.password
-          );
+          const isValid = await bcrypt.compare(password, user.password);
 
           if (!isValid) return null;
 
