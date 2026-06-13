@@ -1,25 +1,79 @@
-import Link from "next/link";
-import { ArrowLeft, Construction } from "lucide-react";
+import { Settings, Save, Server, Globe, BellRing, ShieldCheck } from "lucide-react";
 
-export default function PlaceholderPage() {
+export default function AdminSettingsPage() {
   return (
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] max-w-lg mx-auto text-center space-y-6">
-      <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center border border-purple-500/20">
-        <Construction className="w-10 h-10 text-purple-400" />
-      </div>
+    <div className="space-y-6 max-w-5xl">
       <div>
-        <h1 className="text-2xl font-bold text-white mb-2">Settings</h1>
-        <p className="text-slate-400 text-sm">
-          This module is currently under active development. Our engineering team is working hard to bring you these features soon.
-        </p>
+        <h1 className="text-2xl font-bold text-white">Platform Settings</h1>
+        <p className="text-slate-400 text-sm mt-1">Configure global preferences, branding, and system defaults.</p>
       </div>
-      <Link 
-        href="/admin/dashboard" 
-        className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-medium text-white transition-all"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Dashboard
-      </Link>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="md:col-span-1 space-y-1">
+          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-purple-600/20 text-purple-400 border border-purple-500/20">
+            <Globe className="w-4 h-4" />
+            General
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-all">
+            <Server className="w-4 h-4" />
+            System
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-all">
+            <BellRing className="w-4 h-4" />
+            Notifications
+          </button>
+          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-slate-400 hover:bg-white/5 hover:text-white transition-all">
+            <ShieldCheck className="w-4 h-4" />
+            Security
+          </button>
+        </div>
+
+        <div className="md:col-span-3 glass-card p-6 space-y-6">
+          <div className="space-y-4 border-b border-white/5 pb-6">
+            <h3 className="text-lg font-semibold text-white">General Information</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Platform Name</label>
+                <input 
+                  type="text" 
+                  defaultValue="Training Compiler"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-300 mb-1">Support Email</label>
+                <input 
+                  type="email" 
+                  defaultValue="support@trainingcompiler.com"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4 border-b border-white/5 pb-6">
+            <h3 className="text-lg font-semibold text-white">Appearance</h3>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-1">Primary Color Theme</label>
+              <div className="flex gap-3 mt-2">
+                <button className="w-8 h-8 rounded-full bg-purple-500 ring-2 ring-white ring-offset-2 ring-offset-[#0a0a1a]" />
+                <button className="w-8 h-8 rounded-full bg-blue-500 opacity-50 hover:opacity-100 transition-opacity" />
+                <button className="w-8 h-8 rounded-full bg-emerald-500 opacity-50 hover:opacity-100 transition-opacity" />
+                <button className="w-8 h-8 rounded-full bg-rose-500 opacity-50 hover:opacity-100 transition-opacity" />
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-2 flex justify-end">
+            <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl text-sm font-medium text-white transition-all shadow-lg shadow-purple-500/25">
+              <Save className="w-4 h-4" />
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
