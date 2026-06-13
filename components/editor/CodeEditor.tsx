@@ -23,7 +23,7 @@ interface Problem {
   id: string; title: string; description: string; difficulty: string;
   constraints?: string; inputFormat?: string; outputFormat?: string;
   sampleInput?: string; sampleOutput?: string; marks: number;
-  enabledLanguages: string[]; testCases: TestCase[];
+  enabledLanguages: string; testCases: TestCase[];
 }
 
 interface RunResult {

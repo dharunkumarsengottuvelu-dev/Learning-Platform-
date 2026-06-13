@@ -31,5 +31,5 @@ export default async function CodingProblemPage({
     ),
   };
 
-  return <CodeEditor problem={studentProblem} />;
+  return <CodeEditor problem={studentProblem as any} />;
 }
