@@ -1,8 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import { Bell, Info, ShieldAlert, CheckCircle2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
 // Mock notifications since there is no notifications table in the schema
-const NOTIFICATIONS = [
+const INITIAL_NOTIFICATIONS = [
   {
     id: "1",
     title: "Welcome to Training Compiler!",
@@ -30,6 +33,12 @@ const NOTIFICATIONS = [
 ];
 
 export default function NotificationsPage() {
+  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(n => ({ ...n, read: true })));
+  };
+
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
@@ -37,13 +46,16 @@ export default function NotificationsPage() {
           <h1 className="text-2xl font-bold text-white">Notifications</h1>
           <p className="text-slate-400 text-sm mt-1">Stay updated with the latest alerts and announcements.</p>
         </div>
-        <button className="text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
+        <button 
+          onClick={markAllAsRead}
+          className="text-sm text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+        >
           Mark all as read
         </button>
       </div>
 
       <div className="glass-card divide-y divide-white/5">
-        {NOTIFICATIONS.map((notification) => (
+        {notifications.map((notification) => (
           <div key={notification.id} className={`p-5 flex gap-4 transition-colors hover:bg-white/[0.02] ${!notification.read ? 'bg-cyan-500/[0.02]' : ''}`}>
             <div className="shrink-0 mt-1">
               {notification.type === "info" && <Info className="w-5 h-5 text-cyan-400" />}
