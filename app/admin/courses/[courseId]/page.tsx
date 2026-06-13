@@ -3,9 +3,11 @@ import { ArrowLeft, Edit, BookOpen, Clock, Users } from "lucide-react";
 import Link from "next/link";
 import LessonManager from "./LessonManager";
 
-export default async function CourseDetailsPage({ params }: { params: { courseId: string } }) {
+export default async function CourseDetailsPage({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = await params;
+  
   const course = await db.course.findUnique({
-    where: { id: params.courseId },
+    where: { id: courseId },
     include: { 
       lessons: { orderBy: { order: "asc" } },
       _count: { select: { enrollments: true, batches: true } }

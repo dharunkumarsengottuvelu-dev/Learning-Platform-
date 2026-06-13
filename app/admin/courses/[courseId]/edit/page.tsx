@@ -3,9 +3,11 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import EditCourseForm from "./EditCourseForm";
 
-export default async function EditCoursePage({ params }: { params: { courseId: string } }) {
+export default async function EditCoursePage({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = await params;
+  
   const course = await db.course.findUnique({
-    where: { id: params.courseId },
+    where: { id: courseId },
   });
 
   if (!course) {
