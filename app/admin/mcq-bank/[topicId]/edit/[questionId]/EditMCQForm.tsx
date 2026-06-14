@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, Save, Plus, Trash2 } from "lucide-react";
-import { updateMCQ } from "../../actions";
+import { updateMCQ } from "../../../actions";
 
-export default function EditMCQForm({ question }: { question: any }) {
+export default function EditMCQForm({ question, topicId }: { question: any, topicId: string }) {
+  const isUncategorized = topicId === "uncategorized";
   const [isPending, setIsPending] = useState(false);
   const [options, setOptions] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
@@ -48,9 +49,9 @@ export default function EditMCQForm({ question }: { question: any }) {
   };
 
   return (
-    <>
+    <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/mcq-bank" className="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-all">
+        <Link href={isUncategorized ? "/admin/mcq-bank/uncategorized" : `/admin/mcq-bank/${topicId}`} className="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-all">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -60,6 +61,7 @@ export default function EditMCQForm({ question }: { question: any }) {
       </div>
 
       <form onSubmit={handleSubmit} className="glass-card p-6 space-y-6">
+        {!isUncategorized && <input type="hidden" name="topicId" value={topicId} />}
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">Question Title / Text *</label>
@@ -194,6 +196,6 @@ export default function EditMCQForm({ question }: { question: any }) {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }

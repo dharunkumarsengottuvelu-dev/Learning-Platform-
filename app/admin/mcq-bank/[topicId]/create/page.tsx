@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, Save, Plus, Trash2 } from "lucide-react";
 import { createMCQ } from "../actions";
 
-export default function CreateMCQPage() {
+export default function CreateMCQPage({ params }: { params: { topicId: string } }) {
+  const isUncategorized = params.topicId === "uncategorized";
   const [isPending, setIsPending] = useState(false);
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
@@ -41,7 +42,7 @@ export default function CreateMCQPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/admin/mcq-bank" className="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-all">
+        <Link href={isUncategorized ? "/admin/mcq-bank/uncategorized" : `/admin/mcq-bank/${params.topicId}`} className="p-2 bg-white/5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-all">
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
@@ -51,6 +52,7 @@ export default function CreateMCQPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="glass-card p-6 space-y-6">
+        {!isUncategorized && <input type="hidden" name="topicId" value={params.topicId} />}
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">Question Title / Text *</label>
