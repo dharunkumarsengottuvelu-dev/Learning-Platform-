@@ -34,7 +34,7 @@ export default async function TestDetailPage({ params }: { params: Promise<{ tes
           { label: "Type", value: test.type, icon: Code2 },
         ].map((item) => (
           <div key={item.label} className="glass-card p-3 text-center">
-            <item.icon className="w-5 h-5 mx-auto mb-1 text-purple-400" />
+            <item.icon className="w-5 h-5 mx-auto mb-1 text-blue-400" />
             <p className="text-lg font-bold text-white">{item.value}</p>
             <p className="text-xs text-slate-400">{item.label}</p>
           </div>
@@ -56,14 +56,14 @@ export default async function TestDetailPage({ params }: { params: Promise<{ tes
               >
                 <span className="text-xs text-slate-500 w-5">#{i + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white group-hover:text-purple-300 transition-colors">{problem.title}</p>
+                  <p className="text-sm font-medium text-white group-hover:text-blue-300 transition-colors">{problem.title}</p>
                   <p className="text-xs text-slate-500">{problem._count.testCases} test cases</p>
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getDifficultyColor(problem.difficulty)}`}>
                   {problem.difficulty}
                 </span>
                 <span className="text-xs text-slate-400">{problem.marks}pts</span>
-                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-purple-400 transition-colors" />
+                <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-blue-400 transition-colors" />
               </Link>
             ))}
           </div>

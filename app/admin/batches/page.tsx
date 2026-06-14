@@ -17,12 +17,12 @@ export default async function AdminBatchesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <Layers className="w-6 h-6 text-purple-400" />
+            <Layers className="w-6 h-6 text-blue-400" />
             Batch Management
           </h1>
           <p className="text-slate-400 text-sm mt-1">{batches.length} total batches active.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20">
+        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20">
           <Plus className="w-4 h-4" />
           Create Batch
         </button>
@@ -32,7 +32,7 @@ export default async function AdminBatchesPage() {
         {batches.map((batch) => (
           <div key={batch.id} className="glass-card p-5 hover:border-white/15 transition-all group">
             <div className="flex items-start justify-between mb-3">
-              <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+              <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
                 {batch.name}
               </h3>
               <span className="text-xs px-2 py-0.5 rounded-full font-medium text-emerald-400 bg-emerald-500/10">
@@ -59,7 +59,7 @@ export default async function AdminBatchesPage() {
               <button className="flex-1 text-center text-xs py-2 bg-white/5 hover:bg-white/10 text-slate-300 rounded-lg transition-all">
                 Manage Students
               </button>
-              <Link href={`/admin/assignments?batchId=${batch.id}`} className="flex-1 text-center text-xs py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all">
+              <Link href={`/admin/assignments?batchId=${batch.id}`} className="flex-1 text-center text-xs py-2 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 rounded-lg transition-all">
                 Assign Test
               </Link>
             </div>

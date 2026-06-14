@@ -40,7 +40,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
         {!isAdding && !editingId && (
           <button 
             onClick={() => setIsAdding(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20"
           >
             <Plus className="w-4 h-4" />
             Add Topic Video
@@ -49,10 +49,10 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
       </div>
 
       {isAdding && (
-        <form action={handleAdd} className="glass-card p-6 space-y-4 border border-purple-500/20 relative overflow-hidden">
+        <form action={handleAdd} className="glass-card p-6 space-y-4 border border-blue-600/20 relative overflow-hidden">
           {isPending && (
-            <div className="absolute inset-0 bg-[#0a0a1a]/50 backdrop-blur-sm z-10 flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
+            <div className="absolute inset-0 bg-[#020617]/50 backdrop-blur-sm z-10 flex items-center justify-center">
+              <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
             </div>
           )}
           <h3 className="text-white font-medium mb-4">Add New Topic</h3>
@@ -65,7 +65,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
                 name="title" 
                 required
                 placeholder="e.g. Introduction to Variables"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50"
               />
             </div>
             <div>
@@ -75,7 +75,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
                 name="videoUrl" 
                 required
                 placeholder="https://youtube.com/watch?v=..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50"
               />
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
               name="description" 
               rows={2}
               placeholder="Brief description of this topic..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50"
             />
           </div>
 
@@ -100,7 +100,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
             <button 
               type="submit"
               disabled={isPending}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
             >
               Save Topic
             </button>
@@ -114,7 +114,7 @@ export default function LessonManager({ courseId, initialLessons }: { courseId: 
             return (
               <form key={lesson.id} action={(formData) => handleUpdate(lesson.id, formData)} className="glass-card p-6 space-y-4 border border-cyan-500/20 relative overflow-hidden">
                 {isPending && (
-                  <div className="absolute inset-0 bg-[#0a0a1a]/50 backdrop-blur-sm z-10 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[#020617]/50 backdrop-blur-sm z-10 flex items-center justify-center">
                     <div className="w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
                   </div>
                 )}

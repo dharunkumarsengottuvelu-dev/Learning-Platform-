@@ -9,7 +9,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
   if (role !== "STUDENT") redirect("/admin/dashboard");
 
   return (
-    <div className="flex flex-col h-screen bg-[#0a0a1a] overflow-hidden">
+    <div className="flex flex-col h-screen bg-[#020617] overflow-hidden">
       <StudentNavbar user={session.user as any} />
       <main className="flex-1 overflow-y-auto p-4 md:p-6">
         {children}

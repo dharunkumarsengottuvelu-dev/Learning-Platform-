@@ -26,12 +26,12 @@ export default async function StudentTestsPage() {
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-2">
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                  test.type === "CODING" ? "bg-cyan-600/20" : "bg-purple-600/20"
+                  test.type === "CODING" ? "bg-cyan-600/20" : "bg-blue-700/20"
                 }`}>
-                  <Code2 className={`w-4 h-4 ${test.type === "CODING" ? "text-cyan-400" : "text-purple-400"}`} />
+                  <Code2 className={`w-4 h-4 ${test.type === "CODING" ? "text-cyan-400" : "text-blue-400"}`} />
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                  test.type === "CODING" ? "bg-cyan-500/10 text-cyan-400" : "bg-purple-500/10 text-purple-400"
+                  test.type === "CODING" ? "bg-cyan-500/10 text-cyan-400" : "bg-blue-600/10 text-blue-400"
                 }`}>
                   {test.type}
                 </span>
@@ -61,7 +61,7 @@ export default async function StudentTestsPage() {
 
             <Link
               href={`/student/tests/${test.id}`}
-              className="block w-full text-center py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20"
+              className="block w-full text-center py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20"
             >
               Start Test
             </Link>

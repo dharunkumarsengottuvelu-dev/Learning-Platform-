@@ -21,8 +21,8 @@ export default function EditTestForm({ test }: { test: any }) {
       className="glass-card p-6 space-y-6 relative overflow-hidden"
     >
       {isPending && (
-        <div className="absolute inset-0 bg-[#0a0a1a]/50 backdrop-blur-sm z-10 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
+        <div className="absolute inset-0 bg-[#020617]/50 backdrop-blur-sm z-10 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
       
@@ -34,7 +34,7 @@ export default function EditTestForm({ test }: { test: any }) {
             name="title" 
             required
             defaultValue={test.title}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
           />
         </div>
 
@@ -44,7 +44,7 @@ export default function EditTestForm({ test }: { test: any }) {
             name="description" 
             rows={3}
             defaultValue={test.description || ""}
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
           />
         </div>
 
@@ -54,7 +54,7 @@ export default function EditTestForm({ test }: { test: any }) {
             <select 
               name="type"
               defaultValue={test.type}
-              className="w-full bg-[#13132d] border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full bg-[#13132d] border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
             >
               <option value="CODING">Coding Test</option>
               <option value="MCQ">MCQ Test</option>
@@ -67,7 +67,7 @@ export default function EditTestForm({ test }: { test: any }) {
             <select 
               name="status"
               defaultValue={test.status}
-              className="w-full bg-[#13132d] border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full bg-[#13132d] border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
             >
               <option value="DRAFT">Draft</option>
               <option value="ACTIVE">Active</option>
@@ -86,7 +86,7 @@ export default function EditTestForm({ test }: { test: any }) {
               required
               min="1"
               defaultValue={test.duration}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
             />
           </div>
           
@@ -98,7 +98,7 @@ export default function EditTestForm({ test }: { test: any }) {
               required
               min="1"
               defaultValue={test.totalMarks}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
             />
           </div>
 
@@ -110,7 +110,7 @@ export default function EditTestForm({ test }: { test: any }) {
               required
               min="0"
               defaultValue={test.passingMarks}
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
             />
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function EditTestForm({ test }: { test: any }) {
         <button 
           type="submit"
           disabled={isPending}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl text-sm font-medium text-white transition-all shadow-lg shadow-purple-500/25 disabled:opacity-50"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 rounded-xl text-sm font-medium text-white transition-all shadow-lg shadow-blue-600/25 disabled:opacity-50"
         >
           <Save className="w-4 h-4" />
           Update Test

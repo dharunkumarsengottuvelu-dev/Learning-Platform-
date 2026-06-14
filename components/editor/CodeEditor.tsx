@@ -93,11 +93,11 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
   const publicCases = problem.testCases.filter((tc) => !tc.isHidden);
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] bg-[#0a0a1a]">
+    <div className="flex h-[calc(100vh-3.5rem)] bg-[#020617]">
       {/* LEFT: Problem Panel */}
       <div className="w-[40%] flex flex-col border-r border-white/5 overflow-hidden">
         {/* Tabs */}
-        <div className="flex border-b border-white/5 bg-[#0d0d1f]">
+        <div className="flex border-b border-white/5 bg-[#0f172a]">
           {(["problem", "output", "result"] as const).map((tab) => (
             <button
               key={tab}
@@ -105,7 +105,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
               className={cn(
                 "px-4 py-2.5 text-xs font-medium capitalize transition-all border-b-2",
                 activeTab === tab
-                  ? "border-purple-500 text-purple-300"
+                  ? "border-blue-600 text-blue-300"
                   : "border-transparent text-slate-500 hover:text-slate-300"
               )}
             >
@@ -193,13 +193,13 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
                   value={customInput}
                   onChange={(e) => setCustomInput(e.target.value)}
                   rows={4}
-                  className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-xs text-white font-mono resize-none focus:outline-none focus:ring-1 focus:ring-purple-500/40"
+                  className="w-full bg-black/30 border border-white/10 rounded-lg p-3 text-xs text-white font-mono resize-none focus:outline-none focus:ring-1 focus:ring-blue-600/40"
                   placeholder="Enter your test input here..."
                 />
               </div>
 
               {running && (
-                <div className="flex items-center gap-2 text-sm text-purple-300 bg-purple-500/10 rounded-lg p-3">
+                <div className="flex items-center gap-2 text-sm text-blue-300 bg-blue-600/10 rounded-lg p-3">
                   <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -248,7 +248,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
           {activeTab === "result" && (
             <div className="space-y-3">
               {submitting && (
-                <div className="flex items-center gap-2 text-sm text-purple-300 bg-purple-500/10 rounded-lg p-4">
+                <div className="flex items-center gap-2 text-sm text-blue-300 bg-blue-600/10 rounded-lg p-4">
                   <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -322,7 +322,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
       {/* RIGHT: Code Editor */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Toolbar */}
-        <div className="flex items-center gap-2 px-3 py-2 bg-[#0d0d1f] border-b border-white/5">
+        <div className="flex items-center gap-2 px-3 py-2 bg-[#0f172a] border-b border-white/5">
           {/* Language Selector */}
           <div className="relative">
             <button
@@ -340,7 +340,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
                     onClick={() => handleLanguageChange(lang)}
                     className={cn(
                       "w-full text-left px-3 py-1.5 text-xs hover:bg-white/5 transition-all",
-                      lang === language ? "text-purple-300" : "text-slate-300"
+                      lang === language ? "text-blue-300" : "text-slate-300"
                     )}
                   >
                     {getLanguageLabel(lang)}
@@ -376,7 +376,7 @@ export default function CodeEditor({ problem }: { problem: Problem }) {
               id="submit-code-btn"
               onClick={handleSubmit}
               disabled={running || submitting}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs text-white rounded-lg transition-all font-semibold shadow-lg shadow-purple-500/20 disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-xs text-white rounded-lg transition-all font-semibold shadow-lg shadow-blue-600/20 disabled:opacity-50"
             >
               <Send className="w-3 h-3" />
               {submitting ? "Submitting..." : "Submit"}

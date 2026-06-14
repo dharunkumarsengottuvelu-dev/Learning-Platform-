@@ -24,7 +24,7 @@ export default async function StudentResultsPage() {
         {[
           { label: "Total Submissions", value: submissions.length, color: "text-white" },
           { label: "Accepted", value: submissions.filter((s) => s.status === "ACCEPTED").length, color: "text-emerald-400" },
-          { label: "Total Score", value: submissions.reduce((s, sub) => s + sub.score, 0), color: "text-purple-400" },
+          { label: "Total Score", value: submissions.reduce((s, sub) => s + sub.score, 0), color: "text-blue-400" },
         ].map((s) => (
           <div key={s.label} className="glass-card p-4 text-center">
             <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>

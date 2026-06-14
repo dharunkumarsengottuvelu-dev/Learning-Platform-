@@ -133,11 +133,11 @@ export default function AntiCheatWrapper({
       {/* Fullscreen prompt */}
       {!isFullscreen && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-[#1a1a2e]/90 border border-white/10 text-slate-300 text-xs px-4 py-2 rounded-lg flex items-center gap-2 backdrop-blur-sm">
-          <Maximize className="w-3.5 h-3.5 text-purple-400" />
+          <Maximize className="w-3.5 h-3.5 text-blue-400" />
           <span>For best experience, use fullscreen mode</span>
           <button
             onClick={requestFullscreen}
-            className="ml-2 text-purple-400 hover:text-purple-300 font-medium"
+            className="ml-2 text-blue-400 hover:text-blue-300 font-medium"
           >
             Enter Fullscreen
           </button>

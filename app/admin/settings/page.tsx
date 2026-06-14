@@ -10,7 +10,7 @@ export default function AdminSettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-1 space-y-1">
-          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-purple-600/20 text-purple-400 border border-purple-500/20">
+          <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-blue-700/20 text-blue-400 border border-blue-600/20">
             <Globe className="w-4 h-4" />
             General
           </button>
@@ -38,7 +38,7 @@ export default function AdminSettingsPage() {
                 <input 
                   type="text" 
                   defaultValue="Training Compiler"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50"
                 />
               </div>
               <div>
@@ -46,7 +46,7 @@ export default function AdminSettingsPage() {
                 <input 
                   type="email" 
                   defaultValue="support@trainingcompiler.com"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50"
                 />
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function AdminSettingsPage() {
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-1">Primary Color Theme</label>
               <div className="flex gap-3 mt-2">
-                <button className="w-8 h-8 rounded-full bg-purple-500 ring-2 ring-white ring-offset-2 ring-offset-[#0a0a1a]" />
+                <button className="w-8 h-8 rounded-full bg-blue-600 ring-2 ring-white ring-offset-2 ring-offset-[#020617]" />
                 <button className="w-8 h-8 rounded-full bg-blue-500 opacity-50 hover:opacity-100 transition-opacity" />
                 <button className="w-8 h-8 rounded-full bg-emerald-500 opacity-50 hover:opacity-100 transition-opacity" />
                 <button className="w-8 h-8 rounded-full bg-rose-500 opacity-50 hover:opacity-100 transition-opacity" />
@@ -67,7 +67,7 @@ export default function AdminSettingsPage() {
           </div>
 
           <div className="pt-2 flex justify-end">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 rounded-xl text-sm font-medium text-white transition-all shadow-lg shadow-purple-500/25">
+            <button className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 rounded-xl text-sm font-medium text-white transition-all shadow-lg shadow-blue-600/25">
               <Save className="w-4 h-4" />
               Save Changes
             </button>

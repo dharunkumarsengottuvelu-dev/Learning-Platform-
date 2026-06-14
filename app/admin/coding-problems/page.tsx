@@ -29,7 +29,7 @@ export default async function AdminCodingProblemsPage() {
         </div>
         <Link
           href="/admin/coding-problems/create"
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20"
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20"
         >
           <Plus className="w-4 h-4" />
           New Problem
@@ -46,7 +46,7 @@ export default async function AdminCodingProblemsPage() {
               </span>
               <span className="text-xs text-slate-500">{problem.marks} marks</span>
             </div>
-            <h3 className="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors mb-1">
+            <h3 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors mb-1">
               {problem.title}
             </h3>
             <p className="text-xs text-slate-400 line-clamp-2 mb-3">{problem.description}</p>
@@ -77,7 +77,7 @@ export default async function AdminCodingProblemsPage() {
               </Link>
               <Link
                 href={`/admin/coding-problems/${problem.id}/test-cases`}
-                className="flex-1 text-center text-xs px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all"
+                className="flex-1 text-center text-xs px-3 py-1.5 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 rounded-lg transition-all"
               >
                 Test Cases
               </Link>
@@ -89,7 +89,7 @@ export default async function AdminCodingProblemsPage() {
           <div className="col-span-3 text-center py-16 text-slate-500">
             <Code2 className="w-12 h-12 mx-auto mb-3 opacity-20" />
             <p className="text-sm">No problems yet. Create your first coding problem!</p>
-            <Link href="/admin/coding-problems/create" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-purple-600/20 text-purple-400 rounded-lg text-sm hover:bg-purple-600/30 transition-all">
+            <Link href="/admin/coding-problems/create" className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-blue-700/20 text-blue-400 rounded-lg text-sm hover:bg-blue-700/30 transition-all">
               <Plus className="w-4 h-4" /> Create Problem
             </Link>
           </div>

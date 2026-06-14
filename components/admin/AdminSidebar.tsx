@@ -68,19 +68,19 @@ export default function AdminSidebar() {
   return (
     <aside
       className={cn(
-        "h-screen sticky top-0 flex flex-col bg-[#0d0d1f] border-r border-white/5 transition-all duration-300 z-40",
+        "h-screen sticky top-0 flex flex-col bg-[#0f172a] border-r border-white/5 transition-all duration-300 z-40",
         collapsed ? "w-16" : "w-64"
       )}
     >
       {/* Logo */}
       <div className="flex items-center gap-3 px-4 py-5 border-b border-white/5">
-        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center">
+        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center">
           <Code2 className="w-4 h-4 text-white" />
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
             <p className="text-sm font-bold text-white leading-tight">Training</p>
-            <p className="text-xs text-purple-400 leading-tight">Compiler</p>
+            <p className="text-xs text-blue-400 leading-tight">Compiler</p>
           </div>
         )}
         <button
@@ -111,13 +111,13 @@ export default function AdminSidebar() {
                       className={cn(
                         "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150 group",
                         isActive
-                          ? "bg-purple-600/20 text-purple-300 border border-purple-500/20"
+                          ? "bg-blue-700/20 text-blue-300 border border-blue-600/20"
                           : "text-slate-400 hover:text-white hover:bg-white/5"
                       )}
                     >
-                      <item.icon className={cn("w-4 h-4 flex-shrink-0", isActive ? "text-purple-400" : "text-slate-500 group-hover:text-white")} />
+                      <item.icon className={cn("w-4 h-4 flex-shrink-0", isActive ? "text-blue-400" : "text-slate-500 group-hover:text-white")} />
                       {!collapsed && <span>{item.label}</span>}
-                      {!collapsed && isActive && <ChevronRight className="w-3 h-3 ml-auto text-purple-400" />}
+                      {!collapsed && isActive && <ChevronRight className="w-3 h-3 ml-auto text-blue-400" />}
                     </Link>
                   </li>
                 );

@@ -25,15 +25,15 @@ export default async function ProfilePage() {
     <div className="space-y-6 max-w-5xl mx-auto">
       <div className="glass-card relative overflow-hidden">
         {/* Cover Photo */}
-        <div className="h-32 md:h-48 bg-gradient-to-r from-purple-900/60 via-indigo-900/60 to-cyan-900/60 relative">
+        <div className="h-32 md:h-48 bg-gradient-to-r from-blue-900/60 via-sky-900/60 to-cyan-900/60 relative">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay"></div>
         </div>
         
         <div className="px-6 pb-6 relative">
           {/* Avatar */}
           <div className="relative -mt-16 mb-4 flex justify-between items-end">
-            <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-600 to-indigo-600 p-1 shadow-2xl">
-              <div className="w-full h-full rounded-xl bg-[#0d0d1f] flex items-center justify-center text-4xl font-bold text-white overflow-hidden">
+            <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-600 to-sky-600 p-1 shadow-2xl">
+              <div className="w-full h-full rounded-xl bg-[#0f172a] flex items-center justify-center text-4xl font-bold text-white overflow-hidden">
                 {user.photo ? (
                   <img src={user.photo} alt={user.name} className="w-full h-full object-cover" />
                 ) : (
@@ -66,8 +66,8 @@ export default async function ProfilePage() {
         {/* Stats */}
         <div className="md:col-span-2 grid grid-cols-2 gap-4">
           <div className="glass-card p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20">
-              <Trophy className="w-6 h-6 text-purple-400" />
+            <div className="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center border border-blue-600/20">
+              <Trophy className="w-6 h-6 text-blue-400" />
             </div>
             <div>
               <p className="text-sm text-slate-400">Total Score</p>
@@ -86,8 +86,8 @@ export default async function ProfilePage() {
           </div>
 
           <div className="glass-card p-5 flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
-              <BookOpen className="w-6 h-6 text-indigo-400" />
+            <div className="w-12 h-12 rounded-xl bg-sky-500/10 flex items-center justify-center border border-sky-500/20">
+              <BookOpen className="w-6 h-6 text-sky-400" />
             </div>
             <div>
               <p className="text-sm text-slate-400">Enrolled Courses</p>

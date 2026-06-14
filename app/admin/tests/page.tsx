@@ -28,7 +28,7 @@ export default async function AdminTestsPage() {
         </div>
         <Link
           href="/admin/tests/create"
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20"
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20"
         >
           <Plus className="w-4 h-4" />
           New Test
@@ -60,7 +60,7 @@ export default async function AdminTestsPage() {
                     {test.type === "CODING" ? (
                       <Code2 className="w-3.5 h-3.5 text-cyan-400" />
                     ) : (
-                      <ClipboardList className="w-3.5 h-3.5 text-purple-400" />
+                      <ClipboardList className="w-3.5 h-3.5 text-blue-400" />
                     )}
                     <span className="text-xs text-slate-300">{test.type}</span>
                   </div>
@@ -87,7 +87,7 @@ export default async function AdminTestsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <Link href={`/admin/tests/${test.id}`} className="text-xs text-purple-400 hover:text-purple-300 transition-colors">
+                    <Link href={`/admin/tests/${test.id}`} className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
                       Edit
                     </Link>
                     <Link href={`/admin/assignments?testId=${test.id}`} className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">

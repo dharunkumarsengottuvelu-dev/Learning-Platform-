@@ -72,21 +72,21 @@ export default function RegisterPage() {
           onChange={handleChange}
           placeholder={placeholder}
           required
-          className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all sm:text-sm"
+          className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm"
         />
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a1a] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#020617] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
       {/* Background blobs */}
-      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[600px] h-[600px] bg-purple-700/15 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-indigo-700/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 w-[600px] h-[600px] bg-blue-700/15 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-[600px] h-[600px] bg-sky-700/15 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-xl">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 mb-5 shadow-lg shadow-purple-500/30">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-700 to-sky-600 mb-5 shadow-lg shadow-blue-600/30">
             <Code2 className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl font-extrabold text-white tracking-tight">Create your account</h2>
@@ -130,7 +130,7 @@ export default function RegisterPage() {
                     value={form.year}
                     onChange={handleChange}
                     required
-                    className="block w-full pl-10 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all sm:text-sm appearance-none"
+                    className="block w-full pl-10 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm appearance-none"
                   >
                     <option value="" className="bg-[#0f172a] text-slate-400">Select Year</option>
                     <option value="1st Year" className="bg-[#0f172a]">1st Year</option>
@@ -160,7 +160,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-purple-500/20 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a1a] focus:ring-purple-500 transition-all duration-200 disabled:opacity-50"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-600/20 text-sm font-semibold text-white bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#020617] focus:ring-blue-600 transition-all duration-200 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -188,7 +188,7 @@ export default function RegisterPage() {
           <div className="mt-6 text-center">
             <Link
               href="/login"
-              className="font-medium text-purple-400 hover:text-purple-300 transition-colors"
+              className="font-medium text-blue-400 hover:text-blue-300 transition-colors"
             >
               Sign in to your account →
             </Link>

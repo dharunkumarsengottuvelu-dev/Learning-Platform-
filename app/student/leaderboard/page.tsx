@@ -47,7 +47,7 @@ export default async function LeaderboardPage() {
             const heights = ["mt-6", "mt-0", "mt-8"];
             return (
               <div key={entry.rank} className={`glass-card p-4 text-center ${heights[i]}`}>
-                <div className={`${sizes[i]} rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-lg font-bold text-white mx-auto mb-2`}>
+                <div className={`${sizes[i]} rounded-full bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center text-lg font-bold text-white mx-auto mb-2`}>
                   {getInitials(entry.student?.name || "?")}
                 </div>
                 <p className="text-lg">{[medals[1], medals[0], medals[2]][i]}</p>
@@ -87,7 +87,7 @@ export default async function LeaderboardPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
                         {getInitials(entry.student?.name || "?")}
                       </div>
                       <span className="text-white text-sm font-medium">{entry.student?.name || "Unknown"}</span>

@@ -34,12 +34,12 @@ export default async function SuperAdminPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <Shield className="w-6 h-6 text-purple-400" />
+            <Shield className="w-6 h-6 text-blue-400" />
             Super Admin Controls
           </h1>
           <p className="text-slate-400 text-sm mt-1">Manage system administrators and top-level privileges.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20">
+        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20">
           <UserCog className="w-4 h-4" />
           Add Administrator
         </button>
@@ -60,7 +60,7 @@ export default async function SuperAdminPage() {
               <tr key={admin.id} className="border-b border-white/3 hover:bg-white/2 transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center text-xs font-bold text-white">
                       {admin.name?.[0] || "A"}
                     </div>
                     <div>
@@ -70,7 +70,7 @@ export default async function SuperAdminPage() {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${admin.role === 'SUPER_ADMIN' ? 'text-purple-400 bg-purple-500/10 border border-purple-500/20' : 'text-cyan-400 bg-cyan-500/10 border border-cyan-500/20'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${admin.role === 'SUPER_ADMIN' ? 'text-blue-400 bg-blue-600/10 border border-blue-600/20' : 'text-cyan-400 bg-cyan-500/10 border border-cyan-500/20'}`}>
                     {admin.role}
                   </span>
                 </td>

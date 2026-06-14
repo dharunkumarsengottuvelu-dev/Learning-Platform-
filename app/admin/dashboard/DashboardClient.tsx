@@ -68,8 +68,8 @@ export default function DashboardClient({ stats, user }: { stats: any; user: any
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={Users} label="Total Students" value={stats.totalStudents || 0} sub="Platform-wide" color="bg-purple-600" />
-        <StatCard icon={BookOpen} label="Courses" value={stats.totalCourses || 0} sub={`${stats.draftCourses || 0} in draft`} color="bg-indigo-600" />
+        <StatCard icon={Users} label="Total Students" value={stats.totalStudents || 0} sub="Platform-wide" color="bg-blue-700" />
+        <StatCard icon={BookOpen} label="Courses" value={stats.totalCourses || 0} sub={`${stats.draftCourses || 0} in draft`} color="bg-sky-600" />
         <StatCard icon={ClipboardList} label="Active Tests" value={stats.activeTests || 0} sub={`Out of ${stats.totalTests || 0} total`} color="bg-cyan-600" />
         <StatCard icon={Code2} label="Submissions" value={stats.totalSubmissions || 0} sub={`${stats.pendingSubmissions || 0} pending review`} color="bg-emerald-600" />
       </div>
@@ -85,8 +85,8 @@ export default function DashboardClient({ stats, user }: { stats: any; user: any
             <p className="text-sm font-medium text-amber-400">{stats.pendingSubmissions || 0} Pending Submissions</p>
             <p className="text-xs text-slate-400 mt-1">Requires manual grading or review.</p>
           </div>
-          <div className="bg-purple-500/10 rounded-lg p-3 border border-purple-500/20">
-            <p className="text-sm font-medium text-purple-400">{stats.draftCourses || 0} Draft Courses</p>
+          <div className="bg-blue-600/10 rounded-lg p-3 border border-blue-600/20">
+            <p className="text-sm font-medium text-blue-400">{stats.draftCourses || 0} Draft Courses</p>
             <p className="text-xs text-slate-400 mt-1">Complete content and publish them.</p>
           </div>
           <div className="bg-cyan-500/10 rounded-lg p-3 border border-cyan-500/20">
@@ -193,7 +193,7 @@ export default function DashboardClient({ stats, user }: { stats: any; user: any
             {stats.recentSubmissions?.length > 0 ? (
               stats.recentSubmissions.map((sub: any) => (
                 <div key={sub.id} className="flex items-center gap-3 p-2.5 rounded-lg bg-white/3 hover:bg-white/5 transition-all">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
                     {sub.student?.name?.charAt(0) || "S"}
                   </div>
                   <div className="min-w-0">

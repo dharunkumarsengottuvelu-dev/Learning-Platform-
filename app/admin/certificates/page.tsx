@@ -27,7 +27,7 @@ export default async function AdminCertificatesPage() {
             <input 
               type="text" 
               placeholder="Search by student or certificate ID..." 
-              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-white/5 border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50"
             />
           </div>
         </div>
@@ -45,7 +45,7 @@ export default async function AdminCertificatesPage() {
           <tbody>
             {certificates.map((cert) => (
               <tr key={cert.id} className="border-b border-white/3 hover:bg-white/2 transition-colors">
-                <td className="px-4 py-3 text-xs font-mono text-purple-400">
+                <td className="px-4 py-3 text-xs font-mono text-blue-400">
                   {cert.certificateId.substring(0, 12)}...
                 </td>
                 <td className="px-4 py-3">

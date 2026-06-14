@@ -14,7 +14,7 @@ export default async function EditTestPage({ params }: { params: Promise<{ testI
     return (
       <div className="flex flex-col items-center justify-center h-[50vh] text-center space-y-4">
         <h1 className="text-2xl font-bold text-white">Test Not Found</h1>
-        <Link href="/admin/tests" className="text-purple-400 hover:text-purple-300">
+        <Link href="/admin/tests" className="text-blue-400 hover:text-blue-300">
           Return to Tests
         </Link>
       </div>

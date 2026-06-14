@@ -17,12 +17,12 @@ export default async function AdminAssignmentsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-            <Users className="w-6 h-6 text-purple-400" />
+            <Users className="w-6 h-6 text-blue-400" />
             Test Assignments
           </h1>
           <p className="text-slate-400 text-sm mt-1">Manage active test assignments for students and batches.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20">
+        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20">
           <Plus className="w-4 h-4" />
           Assign Test
         </button>
@@ -44,7 +44,7 @@ export default async function AdminAssignmentsPage() {
               <tr key={assignment.id} className="border-b border-white/3 hover:bg-white/2 transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <ClipboardList className="w-4 h-4 text-purple-400" />
+                    <ClipboardList className="w-4 h-4 text-blue-400" />
                     <div>
                       <p className="text-white font-medium">{assignment.test.title}</p>
                       <p className="text-xs text-slate-500">{assignment.test.duration} mins</p>

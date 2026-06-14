@@ -34,7 +34,7 @@ export default async function StudentCoursesPage() {
           <input
             type="text"
             placeholder="Search courses..."
-            className="w-full bg-black/20 border border-white/5 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+            className="w-full bg-black/20 border border-white/5 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-600"
           />
         </div>
       </div>
@@ -50,13 +50,13 @@ export default async function StudentCoursesPage() {
               <Link 
                 key={e.id} 
                 href={`/student/courses/${e.course.id}`}
-                className="glass-card overflow-hidden group hover:border-purple-500/30 transition-all flex flex-col"
+                className="glass-card overflow-hidden group hover:border-blue-600/30 transition-all flex flex-col"
               >
-                <div className="aspect-video bg-gradient-to-br from-purple-900/40 to-indigo-900/40 relative overflow-hidden flex items-center justify-center">
+                <div className="aspect-video bg-gradient-to-br from-blue-900/40 to-sky-900/40 relative overflow-hidden flex items-center justify-center">
                   {e.course.thumbnail ? (
                     <img src={e.course.thumbnail} alt={e.course.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                   ) : (
-                    <BookOpen className="w-10 h-10 text-purple-400/50" />
+                    <BookOpen className="w-10 h-10 text-blue-400/50" />
                   )}
                   
                   {/* Hover Overlay */}
@@ -69,7 +69,7 @@ export default async function StudentCoursesPage() {
                 
                 <div className="p-4 flex flex-col flex-1">
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="text-sm font-semibold text-white line-clamp-2 group-hover:text-purple-300 transition-colors">
+                    <h3 className="text-sm font-semibold text-white line-clamp-2 group-hover:text-blue-300 transition-colors">
                       {e.course.title}
                     </h3>
                   </div>
@@ -92,7 +92,7 @@ export default async function StudentCoursesPage() {
                     </div>
                     <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
                       <div 
-                        className="bg-gradient-to-r from-purple-500 to-indigo-500 h-full rounded-full transition-all duration-500" 
+                        className="bg-gradient-to-r from-blue-600 to-sky-500 h-full rounded-full transition-all duration-500" 
                         style={{ width: `${progress}%` }} 
                       />
                     </div>
@@ -104,8 +104,8 @@ export default async function StudentCoursesPage() {
         </div>
       ) : (
         <div className="glass-card p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-          <div className="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-4">
-            <BookOpen className="w-8 h-8 text-purple-400" />
+          <div className="w-16 h-16 rounded-2xl bg-blue-600/10 flex items-center justify-center mb-4">
+            <BookOpen className="w-8 h-8 text-blue-400" />
           </div>
           <h2 className="text-lg font-semibold text-white mb-2">No Courses Yet</h2>
           <p className="text-sm text-slate-400 max-w-sm mb-6">

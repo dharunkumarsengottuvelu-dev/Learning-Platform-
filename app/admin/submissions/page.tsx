@@ -56,7 +56,7 @@ export default async function AdminSubmissionsPage() {
                 <tr key={sub.id} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-700 to-sky-600 flex items-center justify-center text-xs font-bold text-white shrink-0">
                         {sub.student.name.charAt(0)}
                       </div>
                       <div>

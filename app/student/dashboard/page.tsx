@@ -48,8 +48,8 @@ export default async function StudentDashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: BookOpen, label: "Enrolled Courses", value: enrollments.length, color: "bg-purple-600" },
-          { icon: ClipboardList, label: "Tests Assigned", value: assignments.length, color: "bg-indigo-600" },
+          { icon: BookOpen, label: "Enrolled Courses", value: enrollments.length, color: "bg-blue-700" },
+          { icon: ClipboardList, label: "Tests Assigned", value: assignments.length, color: "bg-sky-600" },
           { icon: Code2, label: "Submissions", value: submissions.length, color: "bg-cyan-600" },
           { icon: Trophy, label: "Avg Score", value: `${avgScore}%`, color: "bg-emerald-600" },
         ].map((s) => (
@@ -72,22 +72,22 @@ export default async function StudentDashboardPage() {
         <div className="glass-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold text-white">Assigned Tests</h2>
-            <Link href="/student/tests" className="text-xs text-purple-400 hover:text-purple-300">View all →</Link>
+            <Link href="/student/tests" className="text-xs text-blue-400 hover:text-blue-300">View all →</Link>
           </div>
           <div className="space-y-2">
             {assignments.length > 0 ? assignments.map((a) => (
               <Link
                 key={a.id}
                 href={`/student/tests/${a.test.id}`}
-                className="flex items-center gap-3 p-3 rounded-lg bg-white/3 hover:bg-white/6 border border-white/5 hover:border-purple-500/20 transition-all group"
+                className="flex items-center gap-3 p-3 rounded-lg bg-white/3 hover:bg-white/6 border border-white/5 hover:border-blue-600/20 transition-all group"
               >
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${
-                  a.test.type === "CODING" ? "bg-cyan-600/20" : "bg-purple-600/20"
+                  a.test.type === "CODING" ? "bg-cyan-600/20" : "bg-blue-700/20"
                 }`}>
-                  {a.test.type === "CODING" ? <Code2 className="w-4 h-4 text-cyan-400" /> : <ClipboardList className="w-4 h-4 text-purple-400" />}
+                  {a.test.type === "CODING" ? <Code2 className="w-4 h-4 text-cyan-400" /> : <ClipboardList className="w-4 h-4 text-blue-400" />}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-white truncate group-hover:text-purple-300 transition-colors">{a.test.title}</p>
+                  <p className="text-sm font-medium text-white truncate group-hover:text-blue-300 transition-colors">{a.test.title}</p>
                   <p className="text-xs text-slate-500">{a.test.duration} min • {a.test.type}</p>
                 </div>
                 {a.test.endDate && (
@@ -148,19 +148,19 @@ export default async function StudentDashboardPage() {
         <div className="glass-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold text-white">My Courses</h2>
-            <Link href="/student/courses" className="text-xs text-purple-400 hover:text-purple-300">View all →</Link>
+            <Link href="/student/courses" className="text-xs text-blue-400 hover:text-blue-300">View all →</Link>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {enrollments.map((e) => (
               <Link
                 key={e.id}
                 href={`/student/courses/${e.course.id}`}
-                className="block glass rounded-xl p-3 hover:border-purple-500/30 transition-all group"
+                className="block glass rounded-xl p-3 hover:border-blue-600/30 transition-all group"
               >
-                <div className="w-full h-24 rounded-lg bg-gradient-to-br from-purple-900/40 to-indigo-900/40 flex items-center justify-center mb-2">
-                  <BookOpen className="w-6 h-6 text-purple-400 opacity-60" />
+                <div className="w-full h-24 rounded-lg bg-gradient-to-br from-blue-900/40 to-sky-900/40 flex items-center justify-center mb-2">
+                  <BookOpen className="w-6 h-6 text-blue-400 opacity-60" />
                 </div>
-                <p className="text-xs font-medium text-white truncate group-hover:text-purple-300 transition-colors">{e.course.title}</p>
+                <p className="text-xs font-medium text-white truncate group-hover:text-blue-300 transition-colors">{e.course.title}</p>
                 <p className="text-[10px] text-slate-500 mt-0.5">{e.course.difficulty}</p>
               </Link>
             ))}

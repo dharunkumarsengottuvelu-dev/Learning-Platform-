@@ -10,7 +10,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (role !== "ADMIN" && role !== "SUPER_ADMIN") redirect("/student/dashboard");
 
   return (
-    <div className="flex h-screen bg-[#0a0a1a] overflow-hidden">
+    <div className="flex h-screen bg-[#020617] overflow-hidden">
       <AdminSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <AdminHeader user={session.user as any} />

@@ -37,15 +37,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a1a] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#020617] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
       {/* Background blobs */}
-      <div className="absolute top-0 left-0 -translate-y-1/4 -translate-x-1/4 w-[500px] h-[500px] bg-purple-700/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-indigo-700/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-0 -translate-y-1/4 -translate-x-1/4 w-[500px] h-[500px] bg-blue-700/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-sky-700/20 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 mb-5 shadow-lg shadow-purple-500/30">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-700 to-sky-600 mb-5 shadow-lg shadow-blue-600/30">
             <Code2 className="w-8 h-8 text-white" />
           </div>
           <h2 className="text-3xl font-extrabold text-white tracking-tight">Welcome back</h2>
@@ -77,7 +77,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="you@example.com"
-                  className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm"
                 />
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function LoginPage() {
                 <label htmlFor="password" className="block text-sm font-medium text-slate-300">
                   Password
                 </label>
-                <Link href="/forgot-password" className="text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors">
+                <Link href="/forgot-password" className="text-xs font-medium text-blue-400 hover:text-blue-300 transition-colors">
                   Forgot password?
                 </Link>
               </div>
@@ -102,7 +102,7 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   placeholder="••••••••"
-                  className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm"
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-purple-500/20 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a1a] focus:ring-purple-500 transition-all duration-200 disabled:opacity-50"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-600/20 text-sm font-semibold text-white bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#020617] focus:ring-blue-600 transition-all duration-200 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function LoginPage() {
           <div className="mt-6 text-center">
             <Link
               href="/register"
-              className="font-medium text-purple-400 hover:text-purple-300 transition-colors"
+              className="font-medium text-blue-400 hover:text-blue-300 transition-colors"
             >
               Create an account →
             </Link>
@@ -153,7 +153,7 @@ export default function LoginPage() {
         <div className="mt-6 glass rounded-xl p-4 text-center">
           <p className="text-xs text-slate-400">
             <span className="font-semibold text-white">Demo Logins:</span><br/>
-            Admin: <span className="text-purple-400">admin@tc.com</span> (Admin@123)<br/>
+            Admin: <span className="text-blue-400">admin@tc.com</span> (Admin@123)<br/>
             Student: <span className="text-cyan-400">student1@tc.com</span> (Student@123)
           </p>
         </div>

@@ -33,7 +33,7 @@ export default async function AdminCoursesPage() {
         </div>
         <Link
           href="/admin/courses/create"
-          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-purple-500/20"
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20"
         >
           <Plus className="w-4 h-4" />
           New Course
@@ -43,8 +43,8 @@ export default async function AdminCoursesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {courses.map((course) => (
           <div key={course.id} className="glass-card overflow-hidden hover:border-white/15 transition-all group">
-            <div className="h-32 bg-gradient-to-br from-purple-900/40 to-indigo-900/40 flex items-center justify-center">
-              <BookOpen className="w-10 h-10 text-purple-400 opacity-50" />
+            <div className="h-32 bg-gradient-to-br from-blue-900/40 to-sky-900/40 flex items-center justify-center">
+              <BookOpen className="w-10 h-10 text-blue-400 opacity-50" />
             </div>
             <div className="p-4">
               <div className="flex items-center justify-between mb-2">
@@ -55,7 +55,7 @@ export default async function AdminCoursesPage() {
                   {course.difficulty}
                 </span>
               </div>
-              <h3 className="text-sm font-semibold text-white group-hover:text-purple-300 transition-colors mb-1">
+              <h3 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors mb-1">
                 {course.title}
               </h3>
               <p className="text-xs text-slate-400 line-clamp-2 mb-3">{course.description}</p>
@@ -79,7 +79,7 @@ export default async function AdminCoursesPage() {
                 </Link>
                 <Link
                   href={`/admin/courses/${course.id}/edit`}
-                  className="flex-1 text-center text-xs py-1.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 rounded-lg transition-all"
+                  className="flex-1 text-center text-xs py-1.5 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 rounded-lg transition-all"
                 >
                   Edit
                 </Link>

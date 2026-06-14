@@ -17,7 +17,7 @@ export default async function CodingProblemDetailsPage({ params }: { params: Pro
     return (
       <div className="flex flex-col items-center justify-center h-[50vh] text-center space-y-4">
         <h1 className="text-2xl font-bold text-white">Problem Not Found</h1>
-        <Link href="/admin/coding-problems" className="text-purple-400 hover:text-purple-300">
+        <Link href="/admin/coding-problems" className="text-blue-400 hover:text-blue-300">
           Return to Problem Bank
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default async function CodingProblemDetailsPage({ params }: { params: Pro
         </Link>
         <Link 
           href={`/admin/coding-problems/${problem.id}/test-cases`}
-          className="flex items-center gap-2 px-4 py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-sm font-medium rounded-lg transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 text-sm font-medium rounded-lg transition-all"
         >
           <CheckCircle2 className="w-4 h-4" />
           Manage Test Cases
@@ -84,7 +84,7 @@ export default async function CodingProblemDetailsPage({ params }: { params: Pro
           </div>
         </div>
         <div className="glass-card p-4 flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 text-purple-400 rounded-lg">
+          <div className="p-2 bg-blue-600/10 text-blue-400 rounded-lg">
             <Target className="w-5 h-5" />
           </div>
           <div>

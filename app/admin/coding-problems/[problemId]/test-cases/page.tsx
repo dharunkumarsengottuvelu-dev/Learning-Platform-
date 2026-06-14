@@ -4,8 +4,8 @@ import { ArrowLeft, Construction } from "lucide-react";
 export default function PlaceholderPage() {
   return (
     <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] max-w-lg mx-auto text-center space-y-6">
-      <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center border border-purple-500/20">
-        <Construction className="w-10 h-10 text-purple-400" />
+      <div className="w-20 h-20 bg-blue-600/10 rounded-full flex items-center justify-center border border-blue-600/20">
+        <Construction className="w-10 h-10 text-blue-400" />
       </div>
       <div>
         <h1 className="text-2xl font-bold text-white mb-2">Coding Problems Details Test Cases</h1>

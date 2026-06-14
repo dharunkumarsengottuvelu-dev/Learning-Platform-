@@ -16,7 +16,7 @@ export default async function TestDetailsPage({ params }: { params: Promise<{ te
     return (
       <div className="flex flex-col items-center justify-center h-[50vh] text-center space-y-4">
         <h1 className="text-2xl font-bold text-white">Test Not Found</h1>
-        <Link href="/admin/tests" className="text-purple-400 hover:text-purple-300">
+        <Link href="/admin/tests" className="text-blue-400 hover:text-blue-300">
           Return to Tests
         </Link>
       </div>
@@ -51,7 +51,7 @@ export default async function TestDetailsPage({ params }: { params: Promise<{ te
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="glass-card p-4 flex items-center gap-3">
-          <div className="p-2 bg-purple-500/10 text-purple-400 rounded-lg">
+          <div className="p-2 bg-blue-600/10 text-blue-400 rounded-lg">
             <ClipboardList className="w-5 h-5" />
           </div>
           <div>

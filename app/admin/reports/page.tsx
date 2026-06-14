@@ -40,7 +40,7 @@ export default async function AdminReportsPage() {
 
         <div className="glass-card p-5">
           <div className="flex items-center gap-3 mb-3">
-            <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400">
+            <div className="p-2 rounded-lg bg-blue-600/10 text-blue-400">
               <Code2 className="w-5 h-5" />
             </div>
             <h3 className="text-slate-400 font-medium">Code Submissions</h3>
