@@ -46,13 +46,6 @@ export default async function CodingProblemDetailsPage({ params }: { params: Pro
           <Edit className="w-4 h-4" />
           Edit Problem
         </Link>
-        <Link 
-          href={`/admin/coding-problems/${problem.id}/test-cases`}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 text-sm font-medium rounded-lg transition-all"
-        >
-          <CheckCircle2 className="w-4 h-4" />
-          Manage Test Cases
-        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">

@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { Plus, ClipboardList, Code2, Clock, Users } from "lucide-react";
+import { Plus, ClipboardList, Code2, Clock, Users, Edit2, UserPlus } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import DeleteTestButton from "./DeleteTestButton";
 
 export default async function AdminTestsPage() {
   const tests = await db.test.findMany({
@@ -87,12 +88,21 @@ export default async function AdminTestsPage() {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <Link href={`/admin/tests/${test.id}`} className="text-xs text-blue-400 hover:text-blue-300 transition-colors">
-                      Edit
+                    <Link 
+                      href={`/admin/tests/${test.id}`} 
+                      className="p-1.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 rounded-lg transition-colors"
+                      title="Edit Test"
+                    >
+                      <Edit2 className="w-4 h-4" />
                     </Link>
-                    <Link href={`/admin/assignments?testId=${test.id}`} className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
-                      Assign
+                    <Link 
+                      href={`/admin/assignments?testId=${test.id}`} 
+                      className="p-1.5 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300 rounded-lg transition-colors"
+                      title="Assign Test"
+                    >
+                      <UserPlus className="w-4 h-4" />
                     </Link>
+                    <DeleteTestButton testId={test.id} />
                   </div>
                 </td>
               </tr>

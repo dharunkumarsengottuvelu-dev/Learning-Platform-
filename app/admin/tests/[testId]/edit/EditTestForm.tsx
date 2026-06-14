@@ -114,6 +114,28 @@ export default function EditTestForm({ test }: { test: any }) {
             />
           </div>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">Start Date & Time</label>
+            <input 
+              type="datetime-local" 
+              name="startDate" 
+              defaultValue={test.startDate ? new Date(test.startDate).toISOString().slice(0, 16) : ""}
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all [color-scheme:dark]"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-1">End Date & Time</label>
+            <input 
+              type="datetime-local" 
+              name="endDate" 
+              defaultValue={test.endDate ? new Date(test.endDate).toISOString().slice(0, 16) : ""}
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all [color-scheme:dark]"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="pt-4 border-t border-white/10 flex justify-end gap-3">

@@ -15,6 +15,11 @@ export async function createTest(formData: FormData) {
   const duration = parseInt(formData.get("duration") as string);
   const passingMarks = parseInt(formData.get("passingMarks") as string);
   const totalMarks = parseInt(formData.get("totalMarks") as string);
+  const startDateStr = formData.get("startDate") as string;
+  const endDateStr = formData.get("endDate") as string;
+
+  const startDate = startDateStr ? new Date(startDateStr) : null;
+  const endDate = endDateStr ? new Date(endDateStr) : null;
 
   const test = await db.test.create({
     data: {
@@ -24,6 +29,8 @@ export async function createTest(formData: FormData) {
       duration,
       passingMarks,
       totalMarks,
+      startDate,
+      endDate,
       status: "DRAFT",
       createdBy: session.user.id,
     },

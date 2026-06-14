@@ -9,13 +9,33 @@ export async function updateCodingProblem(problemId: string, formData: FormData)
   const difficulty = formData.get("difficulty") as string;
   const marks = parseInt(formData.get("marks") as string);
 
+  const testCasesStr = formData.get("testCases") as string | null;
+
+  let testCases = [];
+  if (testCasesStr) {
+    try {
+      testCases = JSON.parse(testCasesStr);
+    } catch (e) {
+      console.error("Failed to parse test cases", e);
+    }
+  }
+
   await db.codingProblem.update({
     where: { id: problemId },
     data: {
       title,
       description,
       difficulty,
-      marks
+      marks,
+      testCases: {
+        deleteMany: {},
+        create: testCases.map((tc: any, index: number) => ({
+          input: tc.input,
+          output: tc.output,
+          isHidden: tc.isHidden,
+          order: index
+        }))
+      }
     }
   });
 

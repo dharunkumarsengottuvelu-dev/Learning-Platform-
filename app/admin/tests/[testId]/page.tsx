@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { ArrowLeft, Edit, Clock, Target, ClipboardList } from "lucide-react";
 import Link from "next/link";
+import TestContentManager from "./TestContentManager";
 
 export default async function TestDetailsPage({ params }: { params: Promise<{ testId: string }> }) {
   const { testId } = await params;
@@ -8,7 +9,9 @@ export default async function TestDetailsPage({ params }: { params: Promise<{ te
   const test = await db.test.findUnique({
     where: { id: testId },
     include: {
-      _count: { select: { testAssignments: true, questions: true, codingProblems: true } }
+      _count: { select: { testAssignments: true, questions: true, codingProblems: true } },
+      questions: { orderBy: { createdAt: "asc" } },
+      codingProblems: { select: { id: true, title: true, difficulty: true, marks: true } }
     }
   });
 
@@ -95,14 +98,11 @@ export default async function TestDetailsPage({ params }: { params: Promise<{ te
         </div>
       </div>
 
-      <div className="glass-card p-8 text-center border-dashed border-white/10">
-        <ClipboardList className="w-12 h-12 mx-auto text-slate-500 opacity-50 mb-3" />
-        <h3 className="text-white font-medium">Test Content Manager</h3>
-        <p className="text-slate-400 text-sm mt-1 mb-4">Manage the questions and coding problems for this assessment.</p>
-        <button className="px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-300 text-sm rounded-lg transition-colors border border-white/10">
-          Coming Soon
-        </button>
-      </div>
+      <TestContentManager 
+        testId={test.id} 
+        questions={test.questions} 
+        codingProblems={test.codingProblems} 
+      />
     </div>
   );
 }

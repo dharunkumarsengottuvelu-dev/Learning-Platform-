@@ -14,6 +14,16 @@ export async function createCodingProblem(formData: FormData) {
   const difficulty = formData.get("difficulty") as string;
   const marks = parseInt(formData.get("marks") as string);
   const testId = formData.get("testId") as string | null;
+  const testCasesStr = formData.get("testCases") as string | null;
+
+  let testCases = [];
+  if (testCasesStr) {
+    try {
+      testCases = JSON.parse(testCasesStr);
+    } catch (e) {
+      console.error("Failed to parse test cases", e);
+    }
+  }
 
   const problem = await db.codingProblem.create({
     data: {
@@ -23,6 +33,14 @@ export async function createCodingProblem(formData: FormData) {
       marks,
       enabledLanguages: JSON.stringify(["javascript", "python", "cpp", "java", "go", "rust"]),
       testId: testId || null,
+      testCases: {
+        create: testCases.map((tc: any, index: number) => ({
+          input: tc.input,
+          output: tc.output,
+          isHidden: tc.isHidden,
+          order: index
+        }))
+      }
     },
   });
 

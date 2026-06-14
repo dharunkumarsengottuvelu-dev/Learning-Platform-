@@ -8,6 +8,11 @@ export default async function EditCodingProblemPage({ params }: { params: Promis
   
   const problem = await db.codingProblem.findUnique({
     where: { id: problemId },
+    include: {
+      testCases: {
+        orderBy: { order: "asc" }
+      }
+    }
   });
 
   if (!problem) {

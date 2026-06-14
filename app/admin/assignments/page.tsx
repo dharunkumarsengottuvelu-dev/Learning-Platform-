@@ -1,6 +1,8 @@
 import { db } from "@/lib/db";
-import { Users, Plus, ClipboardList, Clock, CheckCircle2 } from "lucide-react";
+import { Users, ClipboardList, Clock, CheckCircle2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import AssignTestButton from "./AssignTestButton";
+import DeleteAssignmentButton from "./DeleteAssignmentButton";
 
 export default async function AdminAssignmentsPage() {
   const assignments = await db.testAssignment.findMany({
@@ -10,6 +12,20 @@ export default async function AdminAssignmentsPage() {
       batch: { select: { name: true } }
     },
     orderBy: { assignedAt: "desc" }
+  });
+
+  const tests = await db.test.findMany({
+    select: { id: true, title: true, type: true },
+    where: { status: "ACTIVE" }
+  });
+
+  const students = await db.user.findMany({
+    select: { id: true, name: true, email: true },
+    where: { role: "STUDENT" }
+  });
+
+  const batches = await db.batch.findMany({
+    select: { id: true, name: true }
   });
 
   return (
@@ -22,10 +38,7 @@ export default async function AdminAssignmentsPage() {
           </h1>
           <p className="text-slate-400 text-sm mt-1">Manage active test assignments for students and batches.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 text-white text-sm font-semibold rounded-lg transition-all shadow-lg shadow-blue-600/20">
-          <Plus className="w-4 h-4" />
-          Assign Test
-        </button>
+        <AssignTestButton tests={tests} students={students} batches={batches} />
       </div>
 
       <div className="glass-card overflow-hidden">
@@ -37,6 +50,7 @@ export default async function AdminAssignmentsPage() {
               <th className="text-left px-4 py-3 font-medium">Assigned On</th>
               <th className="text-left px-4 py-3 font-medium">Deadline</th>
               <th className="text-left px-4 py-3 font-medium">Status</th>
+              <th className="text-right px-4 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +98,9 @@ export default async function AdminAssignmentsPage() {
                     <CheckCircle2 className="w-3 h-3" />
                     ACTIVE
                   </span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <DeleteAssignmentButton assignmentId={assignment.id} />
                 </td>
               </tr>
             ))}

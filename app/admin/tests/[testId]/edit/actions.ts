@@ -11,6 +11,11 @@ export async function updateTest(testId: string, formData: FormData) {
   const duration = parseInt(formData.get("duration") as string);
   const totalMarks = parseInt(formData.get("totalMarks") as string);
   const passingMarks = parseInt(formData.get("passingMarks") as string);
+  const startDateStr = formData.get("startDate") as string;
+  const endDateStr = formData.get("endDate") as string;
+
+  const startDate = startDateStr ? new Date(startDateStr) : null;
+  const endDate = endDateStr ? new Date(endDateStr) : null;
 
   await db.test.update({
     where: { id: testId },
@@ -21,7 +26,9 @@ export async function updateTest(testId: string, formData: FormData) {
       status,
       duration,
       totalMarks,
-      passingMarks
+      passingMarks,
+      startDate,
+      endDate
     }
   });
 

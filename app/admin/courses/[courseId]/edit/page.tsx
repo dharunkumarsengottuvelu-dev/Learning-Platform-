@@ -2,12 +2,16 @@ import { db } from "@/lib/db";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import EditCourseForm from "./EditCourseForm";
+import LessonManager from "../LessonManager";
 
 export default async function EditCoursePage({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = await params;
   
   const course = await db.course.findUnique({
     where: { id: courseId },
+    include: {
+      lessons: { orderBy: { order: "asc" } },
+    }
   });
 
   if (!course) {
@@ -34,6 +38,11 @@ export default async function EditCoursePage({ params }: { params: Promise<{ cou
       </div>
 
       <EditCourseForm course={course} />
+
+      <div className="mt-8">
+        <h2 className="text-xl font-bold text-white mb-4">Course Topics & Resources</h2>
+        <LessonManager courseId={course.id} initialLessons={course.lessons} />
+      </div>
     </div>
   );
 }

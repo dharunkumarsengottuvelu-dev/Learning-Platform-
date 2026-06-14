@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import { Plus, Code2, Search } from "lucide-react";
 import { getDifficultyColor } from "@/lib/utils";
+import DeleteProblemButton from "./DeleteProblemButton";
 
 export default async function AdminCodingProblemsPage() {
   const problems = await db.codingProblem.findMany({
@@ -39,48 +40,45 @@ export default async function AdminCodingProblemsPage() {
       {/* Problems grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {problems.map((problem, i) => (
-          <div key={problem.id} className="glass-card p-4 hover:border-white/15 transition-all group">
-            <div className="flex items-start justify-between mb-3">
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getDifficultyColor(problem.difficulty)}`}>
-                {problem.difficulty}
-              </span>
-              <span className="text-xs text-slate-500">{problem.marks} marks</span>
-            </div>
-            <h3 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors mb-1">
-              {problem.title}
-            </h3>
-            <p className="text-xs text-slate-400 line-clamp-2 mb-3">{problem.description}</p>
-
-            <div className="flex items-center gap-3 text-[11px] text-slate-500 mb-3">
-              <span>✅ {publicCounts[i]} public cases</span>
-              <span>🔒 {hiddenCounts[i]} hidden cases</span>
-              <span>📤 {problem._count.submissions} submissions</span>
-            </div>
-
-            <div className="mt-4 flex flex-wrap gap-2">
-              {JSON.parse(problem.enabledLanguages || "[]").slice(0, 5).map((lang: string) => (
-                <span key={lang} className="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300 border border-white/5 capitalize">
-                  {lang}
+          <div key={problem.id} className="glass-card p-4 hover:border-white/15 transition-all group flex flex-col h-full">
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-start justify-between mb-3">
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getDifficultyColor(problem.difficulty)}`}>
+                  {problem.difficulty}
                 </span>
-              ))}
-              {JSON.parse(problem.enabledLanguages || "[]").length > 5 && (
-                <span className="text-[10px] text-slate-500">+{JSON.parse(problem.enabledLanguages || "[]").length - 5}</span>
-              )}
+                <span className="text-xs text-slate-500">{problem.marks} marks</span>
+              </div>
+              <h3 className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors mb-1">
+                {problem.title}
+              </h3>
+              <p className="text-xs text-slate-400 line-clamp-2 mb-3">{problem.description}</p>
+
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500 mb-3">
+                <span className="whitespace-nowrap">✅ {publicCounts[i]} public cases</span>
+                <span className="whitespace-nowrap">🔒 {hiddenCounts[i]} hidden cases</span>
+                <span className="whitespace-nowrap">📤 {problem._count.submissions} submissions</span>
+              </div>
+
+              <div className="mt-auto flex flex-wrap gap-2 mb-4">
+                {JSON.parse(problem.enabledLanguages || "[]").slice(0, 5).map((lang: string) => (
+                  <span key={lang} className="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300 border border-white/5 capitalize">
+                    {lang}
+                  </span>
+                ))}
+                {JSON.parse(problem.enabledLanguages || "[]").length > 5 && (
+                  <span className="text-[10px] text-slate-500 flex items-center">+{JSON.parse(problem.enabledLanguages || "[]").length - 5}</span>
+                )}
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 mt-auto pt-4 border-t border-white/5">
               <Link
                 href={`/admin/coding-problems/${problem.id}`}
-                className="flex-1 text-center text-xs px-3 py-1.5 bg-white/5 hover:bg-white/10 text-slate-300 rounded-lg transition-all"
+                className="flex-1 text-center text-xs px-3 py-2 bg-white/5 hover:bg-white/10 text-slate-300 rounded-lg transition-all"
               >
                 View / Edit
               </Link>
-              <Link
-                href={`/admin/coding-problems/${problem.id}/test-cases`}
-                className="flex-1 text-center text-xs px-3 py-1.5 bg-blue-700/20 hover:bg-blue-700/30 text-blue-300 rounded-lg transition-all"
-              >
-                Test Cases
-              </Link>
+              <DeleteProblemButton problemId={problem.id} />
             </div>
           </div>
         ))}
