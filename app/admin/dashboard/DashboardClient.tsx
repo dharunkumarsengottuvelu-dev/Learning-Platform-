@@ -68,10 +68,32 @@ export default function DashboardClient({ stats, user }: { stats: any; user: any
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={Users} label="Total Students" value={stats.totalStudents || 0} sub="+12% this month" color="bg-purple-600" />
-        <StatCard icon={BookOpen} label="Active Courses" value={stats.totalCourses || 0} sub="5 published" color="bg-indigo-600" />
-        <StatCard icon={ClipboardList} label="Total Tests" value={stats.totalTests || 0} sub={`${stats.activeTests || 0} active now`} color="bg-cyan-600" />
-        <StatCard icon={Code2} label="Submissions" value={stats.totalSubmissions || 0} sub="All time" color="bg-emerald-600" />
+        <StatCard icon={Users} label="Total Students" value={stats.totalStudents || 0} sub="Platform-wide" color="bg-purple-600" />
+        <StatCard icon={BookOpen} label="Courses" value={stats.totalCourses || 0} sub={`${stats.draftCourses || 0} in draft`} color="bg-indigo-600" />
+        <StatCard icon={ClipboardList} label="Active Tests" value={stats.activeTests || 0} sub={`Out of ${stats.totalTests || 0} total`} color="bg-cyan-600" />
+        <StatCard icon={Code2} label="Submissions" value={stats.totalSubmissions || 0} sub={`${stats.pendingSubmissions || 0} pending review`} color="bg-emerald-600" />
+      </div>
+
+      {/* Action Items */}
+      <div className="glass-card p-5 border-l-4 border-l-amber-500">
+        <div className="flex items-center gap-2 mb-3">
+          <Zap className="w-5 h-5 text-amber-500" />
+          <h2 className="text-base font-semibold text-white">Action Items</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-amber-500/10 rounded-lg p-3 border border-amber-500/20">
+            <p className="text-sm font-medium text-amber-400">{stats.pendingSubmissions || 0} Pending Submissions</p>
+            <p className="text-xs text-slate-400 mt-1">Requires manual grading or review.</p>
+          </div>
+          <div className="bg-purple-500/10 rounded-lg p-3 border border-purple-500/20">
+            <p className="text-sm font-medium text-purple-400">{stats.draftCourses || 0} Draft Courses</p>
+            <p className="text-xs text-slate-400 mt-1">Complete content and publish them.</p>
+          </div>
+          <div className="bg-cyan-500/10 rounded-lg p-3 border border-cyan-500/20">
+            <p className="text-sm font-medium text-cyan-400">{stats.activeTests || 0} Active Tests</p>
+            <p className="text-xs text-slate-400 mt-1">Monitor ongoing assessments.</p>
+          </div>
+        </div>
       </div>
 
       {/* Charts Row 1 */}

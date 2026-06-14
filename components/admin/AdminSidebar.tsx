@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   LayoutDashboard, BookOpen, ClipboardList, Code2, Users,
   BarChart3, Award, Settings, LogOut, Menu, X, GraduationCap,
-  Layers, UserCog, ChevronRight,
+  Layers, UserCog, ChevronRight, Activity, FileCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,33 +19,44 @@ const navGroups = [
     ],
   },
   {
-    label: "Learning",
+    label: "Curriculum Builder",
     items: [
       { href: "/admin/courses", icon: BookOpen, label: "Courses" },
+    ],
+  },
+  {
+    label: "Assessment Engine",
+    items: [
       { href: "/admin/tests", icon: ClipboardList, label: "Tests" },
       { href: "/admin/coding-problems", icon: Code2, label: "Coding Problems" },
     ],
   },
   {
-    label: "People",
+    label: "Evaluation & Grading",
     items: [
-      { href: "/admin/students", icon: GraduationCap, label: "Students" },
-      { href: "/admin/batches", icon: Layers, label: "Batches" },
+      { href: "/admin/submissions", icon: FileCheck, label: "Submissions" },
       { href: "/admin/assignments", icon: Users, label: "Assignments" },
     ],
   },
   {
-    label: "Analytics",
+    label: "User Access",
+    items: [
+      { href: "/admin/students", icon: GraduationCap, label: "Students" },
+      { href: "/admin/batches", icon: Layers, label: "Batches" },
+    ],
+  },
+  {
+    label: "Outcomes",
     items: [
       { href: "/admin/reports", icon: BarChart3, label: "Reports" },
       { href: "/admin/certificates", icon: Award, label: "Certificates" },
     ],
   },
   {
-    label: "System",
+    label: "Configuration",
     items: [
-      { href: "/admin/super-admin", icon: UserCog, label: "Super Admin" },
       { href: "/admin/settings", icon: Settings, label: "Settings" },
+      { href: "/admin/super-admin", icon: UserCog, label: "Super Admin" },
     ],
   },
 ];

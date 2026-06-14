@@ -3,7 +3,10 @@ import { auth } from "@/lib/auth";
 import DashboardClient from "./DashboardClient";
 
 async function getDashboardStats() {
-  const [totalStudents, totalCourses, totalTests, totalSubmissions, recentSubmissions, activeTests] = await Promise.all([
+  const [
+    totalStudents, totalCourses, totalTests, totalSubmissions,
+    recentSubmissions, activeTestsCount, pendingSubmissions, draftCourses
+  ] = await Promise.all([
     db.user.count({ where: { role: "STUDENT" } }),
     db.course.count(),
     db.test.count(),
@@ -14,6 +17,8 @@ async function getDashboardStats() {
       include: { student: { select: { name: true, email: true } }, problem: { select: { title: true } } },
     }),
     db.test.count({ where: { status: "ACTIVE" } }),
+    db.submission.count({ where: { status: "PENDING" } }),
+    db.course.count({ where: { status: "DRAFT" } }),
   ]);
 
   // Monthly enrollment data (last 6 months)
@@ -24,7 +29,11 @@ async function getDashboardStats() {
     take: 180,
   });
 
-  return { totalStudents, totalCourses, totalTests, totalSubmissions, recentSubmissions, activeTests, monthlyData };
+  return {
+    totalStudents, totalCourses, totalTests, totalSubmissions,
+    recentSubmissions, activeTests: activeTestsCount, pendingSubmissions, draftCourses,
+    monthlyData
+  };
 }
 
 export default async function AdminDashboardPage() {
