@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { Plus, BookOpen, Users, Layers } from "lucide-react";
+import { DeleteCourseButton } from "./DeleteCourseButton";
 
 export default async function AdminCoursesPage() {
   const courses = await db.course.findMany({
@@ -82,6 +83,7 @@ export default async function AdminCoursesPage() {
                 >
                   Edit
                 </Link>
+                <DeleteCourseButton courseId={course.id} />
               </div>
             </div>
           </div>
