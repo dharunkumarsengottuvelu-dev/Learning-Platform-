@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -169,12 +170,26 @@ model Question {
   explanation   String?
   marks         Int      @default(1)
   order         Int      @default(0)
+  mcqTopicId    String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  test          Test?    @relation(fields: [testId], references: [id], onDelete: Cascade)
+  test          Test?     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  topic         MCQTopic? @relation(fields: [mcqTopicId], references: [id], onDelete: SetNull)
 
   @@map("questions")
+}
+
+model MCQTopic {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  questions   Question[]
+
+  @@map("mcq_topics")
 }
 
 model CodingProblem {
