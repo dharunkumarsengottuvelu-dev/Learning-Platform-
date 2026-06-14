@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   LayoutDashboard, BookOpen, ClipboardList, Code2, Users,
   BarChart3, Award, Settings, LogOut, Menu, X, GraduationCap,
-  Layers, UserCog, ChevronRight, Activity, FileCheck
+  Layers, UserCog, ChevronRight, Activity, FileCheck, ListChecks
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -29,6 +29,7 @@ const navGroups = [
     items: [
       { href: "/admin/tests", icon: ClipboardList, label: "Tests" },
       { href: "/admin/coding-problems", icon: Code2, label: "Coding Problems" },
+      { href: "/admin/mcq-bank", icon: ListChecks, label: "MCQ Bank" },
     ],
   },
   {

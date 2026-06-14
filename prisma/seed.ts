@@ -253,6 +253,77 @@ async function main() {
   });
   console.log("✅ Test cases created");
 
+  // Create MCQ Bank Questions (Standalone)
+  const mcqs = await Promise.all([
+    prisma.question.create({
+      data: {
+        title: "What is the time complexity of searching in a balanced Binary Search Tree?",
+        type: "SINGLE_CHOICE",
+        options: JSON.stringify(["O(1)", "O(log n)", "O(n)", "O(n log n)"]),
+        correctAnswer: JSON.stringify(["O(log n)"]),
+        explanation: "A balanced BST has a height of O(log n), and search operations traverse from root to leaf, taking time proportional to the height.",
+        marks: 1
+      }
+    }),
+    prisma.question.create({
+      data: {
+        title: "Which of the following are valid React Hooks?",
+        type: "MULTIPLE_CHOICE",
+        options: JSON.stringify(["useState", "useFetch", "useEffect", "useRouter"]),
+        correctAnswer: JSON.stringify(["useState", "useEffect"]),
+        explanation: "useState and useEffect are built-in React hooks. useFetch is usually a custom hook.",
+        marks: 2
+      }
+    }),
+    prisma.question.create({
+      data: {
+        title: "In Python, tuples are mutable.",
+        type: "TRUE_FALSE",
+        options: JSON.stringify(["True", "False"]),
+        correctAnswer: JSON.stringify(["False"]),
+        explanation: "Tuples in Python are immutable data structures.",
+        marks: 1
+      }
+    })
+  ]);
+  console.log("✅ MCQ Bank questions created:", mcqs.length);
+
+  // Create MCQ and Mixed Tests
+  const mcqTest = await prisma.test.upsert({
+    where: { id: "test-mcq-1" },
+    update: {},
+    create: {
+      id: "test-mcq-1",
+      title: "Frontend Fundamentals Assessment",
+      description: "Test your knowledge of core web development concepts.",
+      type: "MCQ",
+      duration: 30,
+      totalMarks: 10,
+      passingMarks: 5,
+      status: "DRAFT",
+      createdBy: admin.id,
+      questions: {
+        create: [
+          {
+            title: "What does CSS stand for?",
+            type: "SINGLE_CHOICE",
+            options: JSON.stringify(["Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Colorful Style Sheets"]),
+            correctAnswer: JSON.stringify(["Cascading Style Sheets"]),
+            marks: 1
+          },
+          {
+            title: "Which HTML attribute specifies an alternate text for an image?",
+            type: "SINGLE_CHOICE",
+            options: JSON.stringify(["title", "src", "alt", "href"]),
+            correctAnswer: JSON.stringify(["alt"]),
+            marks: 1
+          }
+        ]
+      }
+    }
+  });
+  console.log("✅ MCQ Test created:", mcqTest.title);
+
   // Enroll students in courses
   for (const student of students) {
     for (const course of courses.slice(0, 2)) {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Plus, ClipboardList, Code2, Clock, Users, Edit2, UserPlus } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import DeleteTestButton from "./DeleteTestButton";
+import StatusDropdown from "./StatusDropdown";
 
 export default async function AdminTestsPage() {
   const tests = await db.test.findMany({
@@ -82,9 +83,7 @@ export default async function AdminTestsPage() {
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColor[test.status]}`}>
-                    {test.status}
-                  </span>
+                  <StatusDropdown testId={test.id} currentStatus={test.status} />
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">

@@ -10,3 +10,12 @@ export async function deleteTest(testId: string) {
   
   revalidatePath("/admin/tests");
 }
+
+export async function updateTestStatus(testId: string, status: string) {
+  await db.test.update({
+    where: { id: testId },
+    data: { status }
+  });
+  
+  revalidatePath("/admin/tests");
+}
