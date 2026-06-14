@@ -4,9 +4,11 @@ import { useState } from "react";
 import { PlayCircle, CheckCircle2, Circle, FileText, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export default function CourseClient({ course, enrollment }: { course: any, enrollment: any }) {
   const router = useRouter();
+  const supabase = createClient();
   const lessons = course.lessons || [];
   const [activeLesson, setActiveLesson] = useState(lessons[0] || null);
 
