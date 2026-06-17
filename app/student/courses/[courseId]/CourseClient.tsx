@@ -4,15 +4,44 @@ import { useState } from "react";
 import { PlayCircle, CheckCircle2, Circle, FileText, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/utils/supabase/client";
 
 export default function CourseClient({ course, enrollment }: { course: any, enrollment: any }) {
   const router = useRouter();
-  const supabase = createClient();
   const lessons = course.lessons || [];
   const [activeLesson, setActiveLesson] = useState(lessons[0] || null);
+  const [currentProgress, setCurrentProgress] = useState(enrollment.progress || 0);
+  const [marking, setMarking] = useState(false);
 
-  const completedLessons = Math.round((enrollment.progress / 100) * lessons.length) || 0;
+  const completedLessons = Math.round((currentProgress / 100) * lessons.length) || 0;
+  const activeLessonIndex = lessons.findIndex((l: any) => l.id === activeLesson?.id);
+
+  const handleMarkComplete = async () => {
+    if (!activeLesson || marking) return;
+    setMarking(true);
+    try {
+      const res = await fetch(`/api/courses/${course.id}/progress`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lessonIndex: activeLessonIndex,
+          totalLessons: lessons.length,
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCurrentProgress(data.progress);
+        // Auto-advance to next lesson
+        if (activeLessonIndex < lessons.length - 1) {
+          setActiveLesson(lessons[activeLessonIndex + 1]);
+        }
+        router.refresh();
+      }
+    } catch (err) {
+      console.error("Failed to mark lesson as complete", err);
+    } finally {
+      setMarking(false);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-[calc(100vh-6rem)] gap-6">
@@ -27,13 +56,14 @@ export default function CourseClient({ course, enrollment }: { course: any, enro
         <div className="flex-1 overflow-y-auto glass-card rounded-2xl flex flex-col">
           {activeLesson ? (
             <>
-              {/* Video Player Placeholder */}
+              {/* Video Player */}
               <div className="w-full aspect-video bg-black relative flex items-center justify-center overflow-hidden shrink-0 border-b border-white/10">
                 {activeLesson.videoUrl ? (
                   <iframe 
-                    src={activeLesson.videoUrl} 
+                    src={activeLesson.videoUrl.replace("watch?v=", "embed/")} 
                     className="w-full h-full"
                     allowFullScreen
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   />
                 ) : (
                   <div className="text-center">
@@ -50,12 +80,24 @@ export default function CourseClient({ course, enrollment }: { course: any, enro
                     <h1 className="text-2xl font-bold text-white mb-2">{activeLesson.title}</h1>
                     <div className="flex items-center gap-4 text-xs text-slate-400">
                       <span>Duration: {activeLesson.duration || "10 mins"}</span>
+                      <span>Lesson {activeLessonIndex + 1} of {lessons.length}</span>
                     </div>
                   </div>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors text-sm font-medium shrink-0">
-                    <CheckCircle2 className="w-4 h-4" />
-                    Mark as Completed
-                  </button>
+                  {activeLessonIndex < completedLessons ? (
+                    <div className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg text-sm font-medium shrink-0">
+                      <CheckCircle2 className="w-4 h-4" />
+                      Completed
+                    </div>
+                  ) : (
+                    <button
+                      onClick={handleMarkComplete}
+                      disabled={marking}
+                      className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors text-sm font-medium shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <CheckCircle2 className="w-4 h-4" />
+                      {marking ? "Saving..." : "Mark as Completed"}
+                    </button>
+                  )}
                 </div>
                 
                 <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed">
@@ -81,12 +123,12 @@ export default function CourseClient({ course, enrollment }: { course: any, enro
           <h2 className="text-lg font-bold text-white mb-1">Course Content</h2>
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span>{completedLessons} / {lessons.length} lessons completed</span>
-            <span className="text-cyan-400">{enrollment.progress || 0}%</span>
+            <span className="text-cyan-400">{currentProgress}%</span>
           </div>
           <div className="w-full bg-white/5 rounded-full h-1.5 mt-3 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full" 
-              style={{ width: `${enrollment.progress || 0}%` }} 
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 h-full rounded-full transition-all duration-500" 
+              style={{ width: `${currentProgress}%` }} 
             />
           </div>
         </div>
@@ -94,7 +136,7 @@ export default function CourseClient({ course, enrollment }: { course: any, enro
         <div className="flex-1 overflow-y-auto p-3 space-y-1">
           {lessons.map((lesson: any, index: number) => {
             const isActive = activeLesson?.id === lesson.id;
-            const isCompleted = index < completedLessons; // Mocking completed state based on progress percentage
+            const isCompleted = index < completedLessons;
             
             return (
               <button
