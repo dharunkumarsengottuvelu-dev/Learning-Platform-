@@ -5,78 +5,48 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Code2, User, Mail, Lock, Phone, GraduationCap, Building, BookOpen, Loader2 } from "lucide-react";
 
+const InputField = ({ 
+  name, 
+  label, 
+  type = "text", 
+  placeholder, 
+  icon: Icon,
+  value,
+  onChange
+}: {
+  name: string; 
+  label: string; 
+  type?: string; 
+  placeholder?: string; 
+  icon: any;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+}) => (
+  <div className="space-y-2">
+    <label htmlFor={name} className="block text-sm font-medium text-slate-300">
+      {label}
+    </label>
+    <div className="relative">
+      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+        <Icon className="h-5 w-5" />
+      </div>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required
+        className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm"
+      />
+    </div>
+  </div>
+);
+
 export default function RegisterPage() {
   const router = useRouter();
   const [form, setForm] = useState({
-    name: "", email: "", password: "", confirmPassword: "",
-    college: "", department: "", year: "", phone: "",
-  });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (form.password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-    setLoading(true);
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name, email: form.email, password: form.password,
-          college: form.college, department: form.department,
-          year: form.year, phone: form.phone,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.message || "Registration failed.");
-      } else {
-        router.push("/login?registered=true");
-      }
-    } catch {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const InputField = ({ name, label, type = "text", placeholder, icon: Icon }: {
-    name: keyof typeof form; label: string; type?: string; placeholder?: string; icon: any;
-  }) => (
-    <div className="space-y-2">
-      <label htmlFor={name} className="block text-sm font-medium text-slate-300">
-        {label}
-      </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-          <Icon className="h-5 w-5" />
-        </div>
-        <input
-          id={name}
-          name={name}
-          type={type}
-          value={form[name]}
-          onChange={handleChange}
-          placeholder={placeholder}
-          required
-          className="block w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-600/50 focus:border-blue-600/50 transition-all sm:text-sm"
-        />
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-[#020617] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
@@ -104,17 +74,17 @@ export default function RegisterPage() {
 
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <InputField name="name" label="Full Name" placeholder="John Doe" icon={User} />
+                <InputField name="name" label="Full Name" placeholder="John Doe" icon={User} value={form.name} onChange={handleChange} />
               </div>
               
               <div className="sm:col-span-2">
-                <InputField name="email" label="Email Address" type="email" placeholder="you@example.com" icon={Mail} />
+                <InputField name="email" label="Email Address" type="email" placeholder="you@example.com" icon={Mail} value={form.email} onChange={handleChange} />
               </div>
 
-              <InputField name="password" label="Password" type="password" placeholder="Min 8 chars" icon={Lock} />
-              <InputField name="confirmPassword" label="Confirm Password" type="password" placeholder="Repeat password" icon={Lock} />
+              <InputField name="password" label="Password" type="password" placeholder="Min 8 chars" icon={Lock} value={form.password} onChange={handleChange} />
+              <InputField name="confirmPassword" label="Confirm Password" type="password" placeholder="Repeat password" icon={Lock} value={form.confirmPassword} onChange={handleChange} />
               
-              <InputField name="phone" label="Phone Number" placeholder="+91 9876543210" icon={Phone} />
+              <InputField name="phone" label="Phone Number" placeholder="+91 9876543210" icon={Phone} value={form.phone} onChange={handleChange} />
 
               <div className="space-y-2">
                 <label htmlFor="year" className="block text-sm font-medium text-slate-300">
@@ -148,11 +118,11 @@ export default function RegisterPage() {
               </div>
 
               <div className="sm:col-span-2">
-                <InputField name="college" label="College / University" placeholder="Anna University" icon={Building} />
+                <InputField name="college" label="College / University" placeholder="Anna University" icon={Building} value={form.college} onChange={handleChange} />
               </div>
 
               <div className="sm:col-span-2">
-                <InputField name="department" label="Department" placeholder="Computer Science & Engineering" icon={BookOpen} />
+                <InputField name="department" label="Department" placeholder="Computer Science & Engineering" icon={BookOpen} value={form.department} onChange={handleChange} />
               </div>
             </div>
 
