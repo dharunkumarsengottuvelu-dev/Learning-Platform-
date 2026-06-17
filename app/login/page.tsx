@@ -19,12 +19,12 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const result = await signIn("credentials", {
-        email,
+        email: email.trim(),
         password,
         redirect: false,
       });
       if (result?.error) {
-        setError("Invalid email or password. Please try again.");
+        setError(`Error: ${result.error}. (Please check your database connection or environment variables)`);
       } else {
         router.push("/");
         router.refresh();

@@ -47,11 +47,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             where: { email },
           });
 
-          if (!user || !user.password) return null;
+          if (!user) throw new Error("User not found");
+          if (!user.password) throw new Error("User has no password set");
 
           const isValid = await bcrypt.compare(password, user.password);
 
-          if (!isValid) return null;
+          if (!isValid) throw new Error("Incorrect password");
 
           return {
             id: user.id,
@@ -60,9 +61,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             role: user.role,
             photo: user.photo,
           };
-        } catch (error) {
+        } catch (error: any) {
           console.error("[AUTH] Database error:", error);
-          return null;
+          throw new Error(error.message || "Database connection error");
         }
       },
     }),
