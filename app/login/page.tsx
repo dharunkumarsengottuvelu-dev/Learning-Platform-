@@ -42,8 +42,7 @@ export default function LoginPage() {
       if (result?.error) {
         setError(getErrorMessage(result.error));
       } else if (result?.ok) {
-        router.push("/");
-        router.refresh();
+        window.location.href = "/";
       }
     } catch {
       setError("Something went wrong. Please try again.");
