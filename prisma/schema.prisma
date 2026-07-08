@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,40 +8,9 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model User {
-  id             String   @id @default(cuid())
-  name           String
-  email          String   @unique
-  password       String?
-  role           String   @default("STUDENT") // SUPER_ADMIN, ADMIN, STUDENT
-  photo          String?
-  phone          String?
-  college        String?
-  department     String?
-  year           String?
-  skills         String   @default("[]")      // JSON array of strings
-  isActive       Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  // Auth
-  accounts       Account[]
-  sessions       Session[]
-
-  // Relations
-  enrollments        Enrollment[]
-  testAssignments    TestAssignment[]
-  submissions        Submission[]
-  mcqSubmissions     MCQSubmission[]
-  certificates       Certificate[]
-  createdCourses     Course[]         @relation("CourseCreator")
-  createdTests       Test[]           @relation("TestCreator")
-
-  @@map("users")
-}
-
-model Account {
-  id                String  @id @default(cuid())
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model accounts {
+  id                String  @id
   userId            String
   type              String
   provider          String
@@ -56,56 +22,95 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  users             users   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@map("accounts")
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sessions")
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model batches {
+  id               String             @id
+  name             String
+  courseId         String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  courses          courses?           @relation(fields: [courseId], references: [id])
+  test_assignments test_assignments[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model certificates {
+  id            String   @id
+  studentId     String
+  courseId      String
+  certificateId String   @unique
+  issuedAt      DateTime @default(now())
+  courses       courses  @relation(fields: [courseId], references: [id])
+  users         users    @relation(fields: [studentId], references: [id])
 
-  @@unique([identifier, token])
-  @@map("verification_tokens")
+  @@unique([studentId, courseId])
 }
 
-model Course {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  thumbnail   String?
-  duration    String?
-  difficulty  String   @default("EASY")     // EASY, MEDIUM, HARD
-  status      String   @default("DRAFT")    // DRAFT, PUBLISHED, ARCHIVED
-  createdBy   String
-  creator     User     @relation("CourseCreator", fields: [createdBy], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  lessons     Lesson[]
-  tests       Test[]
-  enrollments Enrollment[]
-  batches     Batch[]
-  certificates Certificate[]
-
-  @@map("courses")
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model coding_problems {
+  id               String        @id
+  testId           String?
+  title            String
+  description      String
+  difficulty       String        @default("EASY")
+  constraints      String?
+  inputFormat      String?
+  outputFormat     String?
+  sampleInput      String?
+  sampleOutput     String?
+  marks            Int           @default(10)
+  timeLimit        Int           @default(2)
+  memoryLimit      Int           @default(256)
+  enabledLanguages String        @default("[\"python\", \"javascript\", \"java\", \"cpp\", \"c\"]")
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime
+  tests            tests?        @relation(fields: [testId], references: [id])
+  submissions      submissions[]
+  test_cases       test_cases[]
 }
 
-model Lesson {
-  id        String   @id @default(cuid())
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model courses {
+  id           String         @id
+  title        String
+  description  String
+  thumbnail    String?
+  duration     String?
+  difficulty   String         @default("EASY")
+  status       String         @default("DRAFT")
+  createdBy    String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  batches      batches[]
+  certificates certificates[]
+  users        users          @relation(fields: [createdBy], references: [id])
+  enrollments  enrollments[]
+  lessons      lessons[]
+  tests        tests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model enrollments {
+  id          String    @id
+  studentId   String
+  courseId    String
+  enrolledAt  DateTime  @default(now())
+  completedAt DateTime?
+  progress    Int       @default(0)
+  courses     courses   @relation(fields: [courseId], references: [id])
+  users       users     @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, courseId])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model lessons {
+  id        String   @id
   courseId  String
   title     String
   content   String?
@@ -114,200 +119,161 @@ model Lesson {
   order     Int      @default(0)
   duration  String?
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
-  @@map("lessons")
+  updatedAt DateTime
+  courses   courses  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
-model Batch {
-  id        String   @id @default(cuid())
-  name      String
-  courseId  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  course          Course?          @relation(fields: [courseId], references: [id])
-  testAssignments TestAssignment[]
-
-  @@map("batches")
-}
-
-model Test {
-  id           String    @id @default(cuid())
-  courseId     String?
-  title        String
-  description  String?
-  type         String    @default("CODING") // CODING, MCQ, MIXED
-  duration     Int       // in minutes
-  startDate    DateTime?
-  endDate      DateTime?
-  passingMarks Int       @default(40)
-  totalMarks   Int       @default(100)
-  status       String    @default("DRAFT")  // DRAFT, ACTIVE, COMPLETED, ARCHIVED
-  createdBy    String
-  creator      User      @relation("TestCreator", fields: [createdBy], references: [id])
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  course          Course?          @relation(fields: [courseId], references: [id])
-  questions       Question[]
-  codingProblems  CodingProblem[]
-  testAssignments TestAssignment[]
-  mcqSubmissions  MCQSubmission[]
-
-  @@map("tests")
-}
-
-model Question {
-  id            String   @id @default(cuid())
-  testId        String?
-  type          String   @default("SINGLE_CHOICE") // SINGLE_CHOICE, MULTIPLE_CHOICE, TRUE_FALSE, FILL_IN_BLANK
-  title         String
-  options       String?  // JSON string
-  correctAnswer String?  // JSON string
-  explanation   String?
-  marks         Int      @default(1)
-  order         Int      @default(0)
-  mcqTopicId    String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  test          Test?     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  topic         MCQTopic? @relation(fields: [mcqTopicId], references: [id], onDelete: SetNull)
-
-  @@map("questions")
-}
-
-model MCQTopic {
-  id          String     @id @default(cuid())
-  name        String
-  description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-
-  questions   Question[]
-
-  @@map("mcq_topics")
-}
-
-model CodingProblem {
-  id               String   @id @default(cuid())
-  testId           String?
-  title            String
-  description      String
-  difficulty       String   @default("EASY") // EASY, MEDIUM, HARD
-  constraints      String?
-  inputFormat      String?
-  outputFormat     String?
-  sampleInput      String?
-  sampleOutput     String?
-  marks            Int      @default(10)
-  timeLimit        Int      @default(2)    // seconds
-  memoryLimit      Int      @default(256)  // MB
-  enabledLanguages String   @default("[\"python\", \"javascript\", \"java\", \"cpp\", \"c\"]") // JSON array of strings
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-
-  test             Test?        @relation(fields: [testId], references: [id], onDelete: SetNull)
-  testCases        TestCase[]
-  submissions      Submission[]
-
-  @@map("coding_problems")
-}
-
-model TestCase {
-  id        String   @id @default(cuid())
-  problemId String
-  input     String
-  output    String
-  isHidden  Boolean  @default(false)
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-
-  problem   CodingProblem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-
-  @@map("test_cases")
-}
-
-model Submission {
-  id            String   @id @default(cuid())
-  studentId     String
-  problemId     String
-  language      String
-  code          String
-  score         Int      @default(0)
-  status        String   @default("PENDING") // PENDING, ACCEPTED, WRONG_ANSWER, TIME_LIMIT_EXCEEDED, RUNTIME_ERROR, COMPILATION_ERROR, PARTIAL
-  passedCases   Int      @default(0)
-  totalCases    Int      @default(0)
-  executionTime Float?   // ms
-  memoryUsed    Float?   // KB
-  errorMessage  String?
-  createdAt     DateTime @default(now())
-
-  student       User             @relation(fields: [studentId], references: [id])
-  problem       CodingProblem    @relation(fields: [problemId], references: [id])
-
-  @@map("submissions")
-}
-
-model MCQSubmission {
-  id          String   @id @default(cuid())
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mcq_submissions {
+  id          String   @id
   studentId   String
   testId      String
-  answers     String   // JSON string
+  answers     String
   score       Int      @default(0)
   totalMarks  Int      @default(0)
-  timeTaken   Int?     // seconds
+  timeTaken   Int?
   submittedAt DateTime @default(now())
-
-  student     User     @relation(fields: [studentId], references: [id])
-  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-
-  @@map("mcq_submissions")
+  users       users    @relation(fields: [studentId], references: [id])
+  tests       tests    @relation(fields: [testId], references: [id], onDelete: Cascade)
 }
 
-model Enrollment {
-  id          String    @id @default(cuid())
-  studentId   String
-  courseId    String
-  enrolledAt  DateTime  @default(now())
-  completedAt DateTime?
-  progress    Int       @default(0) // percentage
-
-  student     User      @relation(fields: [studentId], references: [id])
-  course      Course    @relation(fields: [courseId], references: [id])
-
-  @@unique([studentId, courseId])
-  @@map("enrollments")
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model mcq_topics {
+  id          String      @id
+  name        String
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime
+  questions   questions[]
 }
 
-model TestAssignment {
-  id          String    @id @default(cuid())
-  testId      String
-  studentId   String?
-  batchId     String?
-  assignedAt  DateTime  @default(now())
-  deadline    DateTime?
-
-  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  student     User?    @relation(fields: [studentId], references: [id])
-  batch       Batch?   @relation(fields: [batchId], references: [id])
-
-  @@map("test_assignments")
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model questions {
+  id            String      @id
+  testId        String?
+  type          String      @default("SINGLE_CHOICE")
+  title         String
+  options       String?
+  correctAnswer String?
+  explanation   String?
+  marks         Int         @default(1)
+  order         Int         @default(0)
+  mcqTopicId    String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime
+  mcq_topics    mcq_topics? @relation(fields: [mcqTopicId], references: [id])
+  tests         tests?      @relation(fields: [testId], references: [id], onDelete: Cascade)
 }
 
-model Certificate {
-  id            String   @id @default(cuid())
-  studentId     String
-  courseId      String
-  certificateId String   @unique @default(cuid())
-  issuedAt      DateTime @default(now())
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model sessions {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  users        users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  student       User     @relation(fields: [studentId], references: [id])
-  course        Course   @relation(fields: [courseId], references: [id])
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model submissions {
+  id              String          @id
+  studentId       String
+  problemId       String
+  language        String
+  code            String
+  score           Int             @default(0)
+  status          String          @default("PENDING")
+  passedCases     Int             @default(0)
+  totalCases      Int             @default(0)
+  executionTime   Float?
+  memoryUsed      Float?
+  errorMessage    String?
+  createdAt       DateTime        @default(now())
+  coding_problems coding_problems @relation(fields: [problemId], references: [id])
+  users           users           @relation(fields: [studentId], references: [id])
+}
 
-  @@unique([studentId, courseId])
-  @@map("certificates")
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model test_assignments {
+  id         String    @id
+  testId     String
+  studentId  String?
+  batchId    String?
+  assignedAt DateTime  @default(now())
+  deadline   DateTime?
+  batches    batches?  @relation(fields: [batchId], references: [id])
+  users      users?    @relation(fields: [studentId], references: [id])
+  tests      tests     @relation(fields: [testId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model test_cases {
+  id              String          @id
+  problemId       String
+  input           String
+  output          String
+  isHidden        Boolean         @default(false)
+  order           Int             @default(0)
+  createdAt       DateTime        @default(now())
+  coding_problems coding_problems @relation(fields: [problemId], references: [id], onDelete: Cascade)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model tests {
+  id               String             @id
+  courseId         String?
+  title            String
+  description      String?
+  type             String             @default("CODING")
+  duration         Int
+  startDate        DateTime?
+  endDate          DateTime?
+  passingMarks     Int                @default(40)
+  totalMarks       Int                @default(100)
+  status           String             @default("DRAFT")
+  createdBy        String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  coding_problems  coding_problems[]
+  mcq_submissions  mcq_submissions[]
+  questions        questions[]
+  test_assignments test_assignments[]
+  courses          courses?           @relation(fields: [courseId], references: [id])
+  users            users              @relation(fields: [createdBy], references: [id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users {
+  id               String             @id
+  name             String
+  email            String             @unique
+  password         String?
+  role             String             @default("STUDENT")
+  photo            String?
+  phone            String?
+  college          String?
+  department       String?
+  year             String?
+  skills           String             @default("[]")
+  isActive         Boolean            @default(true)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  accounts         accounts[]
+  certificates     certificates[]
+  courses          courses[]
+  enrollments      enrollments[]
+  mcq_submissions  mcq_submissions[]
+  sessions         sessions[]
+  submissions      submissions[]
+  test_assignments test_assignments[]
+  tests            tests[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model verification_tokens {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
