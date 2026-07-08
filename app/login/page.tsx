@@ -4,7 +4,17 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Code2, Mail, Lock, Loader2, ArrowRight } from "lucide-react";
+import { Code2, Mail, Lock, Loader2, ArrowRight, Zap } from "lucide-react";
+
+function getErrorMessage(error: string): string {
+  if (error === "CredentialsSignin" || error === "Configuration") {
+    return "Invalid email or password. Please try again.";
+  }
+  if (error === "User not found") return "No account found with this email.";
+  if (error === "Incorrect password") return "Incorrect password. Please try again.";
+  if (error === "User has no password set") return "This account uses a different sign-in method.";
+  return "Invalid email or password. Please try again.";
+}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -12,6 +22,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const quickLogin = (e: string, p: string) => {
+    setEmail(e);
+    setPassword(p);
+    setError("");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +40,8 @@ export default function LoginPage() {
         redirect: false,
       });
       if (result?.error) {
-        setError(`Error: ${result.error}. (Please check your database connection or environment variables)`);
-      } else {
+        setError(getErrorMessage(result.error));
+      } else if (result?.ok) {
         router.push("/");
         router.refresh();
       }
@@ -149,13 +165,28 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Role hint */}
-        <div className="mt-6 glass rounded-xl p-4 text-center">
-          <p className="text-xs text-slate-400">
-            <span className="font-semibold text-white">Demo Logins:</span><br/>
-            Admin: <span className="text-blue-400">admin@tc.com</span> (Admin@123)<br/>
-            Student: <span className="text-cyan-400">student1@tc.com</span> (Student@123)
+        {/* Demo Logins */}
+        <div className="mt-6 glass rounded-xl p-4">
+          <p className="text-xs text-slate-400 text-center mb-3 flex items-center justify-center gap-1">
+            <Zap className="w-3 h-3 text-yellow-400" />
+            <span className="font-semibold text-white">Quick Demo Login</span>
           </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => quickLogin("admin@tc.com", "Admin@123")}
+              className="flex-1 text-xs py-2 px-3 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 font-medium transition-all"
+            >
+              🛡️ Admin
+            </button>
+            <button
+              type="button"
+              onClick={() => quickLogin("student1@tc.com", "Student@123")}
+              className="flex-1 text-xs py-2 px-3 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 border border-cyan-500/30 text-cyan-300 font-medium transition-all"
+            >
+              🎓 Student
+            </button>
+          </div>
         </div>
       </div>
     </div>
