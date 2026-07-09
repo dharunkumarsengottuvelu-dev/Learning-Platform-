@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { submitCode } from "@/lib/judge0";
 import { auth } from "@/lib/auth";
 
+// Allow up to 60 seconds for code execution on Vercel
+export const maxDuration = 60;
+
+
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });

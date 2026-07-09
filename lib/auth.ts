@@ -1,10 +1,16 @@
- import NextAuth from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
+// IMPORTANT for Vercel/Render deployment:
+// Set AUTH_URL (or NEXTAUTH_URL) in your hosting environment variables to your
+// exact deployment URL, e.g. https://training-compiler.vercel.app
+// Without this, NextAuth cannot correctly bind cookies to the right domain.
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET,
+  // trustHost is required on Vercel/Render — they use reverse proxies and
+  // NextAuth must trust the X-Forwarded-Host header to derive the correct URL.
   trustHost: true,
   session: { strategy: "jwt" },
   pages: {
@@ -67,4 +73,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 });
+
 

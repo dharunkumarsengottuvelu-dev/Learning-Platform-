@@ -110,8 +110,9 @@ export async function submitCode(
 
   const languageId = getJudge0LanguageId(language);
 
-  // Create submission
-  const createRes = await fetch(`${JUDGE0_BASE_URL}/submissions?base64_encoded=false&wait=false`, {
+  // Use wait=true (synchronous mode) to get results in a single request.
+  // This avoids Vercel's serverless function timeout caused by polling loops.
+  const createRes = await fetch(`${JUDGE0_BASE_URL}/submissions?base64_encoded=false&wait=true`, {
     method: "POST",
     headers: judge0Headers,
     body: JSON.stringify({
@@ -134,31 +135,14 @@ export async function submitCode(
     throw new Error(`Judge0 submission failed: ${err}`);
   }
 
-  const { token } = await createRes.json();
+  const result = await createRes.json();
 
-  // Poll for result
-  let attempts = 0;
-  while (attempts < 20) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const resultRes = await fetch(
-      `${JUDGE0_BASE_URL}/submissions/${token}?base64_encoded=false&fields=status,stdout,stderr,compile_output,time,memory,message`,
-      { headers: judge0Headers }
-    );
-
-    if (!resultRes.ok) {
-      attempts++;
-      continue;
-    }
-
-    const result = await resultRes.json();
-    // Status 1 = In Queue, 2 = Processing
-    if (result.status?.id > 2) {
-      return { token, ...result };
-    }
-    attempts++;
+  // If status is still In Queue or Processing (shouldn't happen with wait=true, but guard anyway)
+  if (result.status?.id <= 2) {
+    throw new Error("Code execution timed out waiting for Judge0 response.");
   }
 
-  throw new Error("Code execution timed out.");
+  return { token: result.token || "sync-token", ...result };
 }
 
 export async function runTestCases(

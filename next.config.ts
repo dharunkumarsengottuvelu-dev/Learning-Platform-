@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Prevent webpack from bundling native Node.js modules.
+  // Required for bcryptjs and Prisma to work correctly on Vercel/Render.
+  serverExternalPackages: ["bcryptjs", "@prisma/client", "prisma"],
+
   images: {
     remotePatterns: [
       { hostname: "res.cloudinary.com" },
@@ -11,3 +15,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+

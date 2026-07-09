@@ -3,6 +3,10 @@ import { db } from "@/lib/db";
 import { runTestCases } from "@/lib/judge0";
 import { auth } from "@/lib/auth";
 
+// Allow up to 60 seconds for test case execution on Vercel
+export const maxDuration = 60;
+
+
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
