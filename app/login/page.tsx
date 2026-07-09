@@ -1,27 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Code2, Mail, Lock, Loader2, ArrowRight, Zap } from "lucide-react";
-
-function getErrorMessage(error: string): string {
-  if (error === "CredentialsSignin" || error === "Configuration") {
-    return "Invalid email or password. Please try again.";
-  }
-  if (error === "User not found") return "No account found with this email.";
-  if (error === "Incorrect password") return "Incorrect password. Please try again.";
-  if (error === "User has no password set") return "This account uses a different sign-in method.";
-  return "Invalid email or password. Please try again.";
-}
+import { loginAction } from "@/app/actions/auth";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const quickLogin = (e: string, p: string) => {
     setEmail(e);
@@ -29,55 +19,17 @@ export default function LoginPage() {
     setError("");
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const clientAction = (formData: FormData) => {
     setError("");
-    setLoading(true);
-    try {
-      // IMPORTANT: Do NOT use redirect:false + window.location.href.
-      // That pattern creates a race condition: the browser may start navigating
-      // before the Set-Cookie header from the signIn response is committed to
-      // the browser's cookie jar, causing proxy.ts to see no token and send the
-      // user back to /login even though auth succeeded.
-      //
-      // Instead, we call signIn with redirect:false ONLY to check for credential
-      // errors first (wrong password etc.). If credentials are valid (no error),
-      // we call signIn again WITHOUT redirect:false so NextAuth issues a single
-      // HTTP 302 response that carries BOTH the Set-Cookie and the Location
-      // header atomically — the cookie is guaranteed to be set before the browser
-      // follows the redirect.
-      const check = await signIn("credentials", {
-        email: email.trim(),
-        password,
-        redirect: false,
-      });
-
-      if (check?.error) {
-        // Credentials are wrong — show error message, stay on page
-        setError(getErrorMessage(check.error));
-        setLoading(false);
-        return;
+    startTransition(async () => {
+      const result = await loginAction(formData);
+      if (result?.error) {
+        setError(result.error);
       }
-
-      // Credentials are valid. Now do the real sign-in WITH server-side redirect.
-      // NextAuth will respond with a 302 that simultaneously sets the cookie and
-      // redirects to the callbackUrl — no race condition possible.
-      await signIn("credentials", {
-        email: email.trim(),
-        password,
-        callbackUrl: "/",
-        // redirect:true is the default — do not override it
-      });
-
-      // The line below is only reached if the browser blocks the redirect (very
-      // rare). Fallback using replace so browser history is clean.
-      window.location.replace("/");
-    } catch {
-      setError("Something went wrong. Please try again.");
-      setLoading(false);
-    }
+      // If successful, NextAuth throws a redirect which Next.js catches
+      // and automatically handles on the server, ensuring perfect cookie setup.
+    });
   };
-
 
   return (
     <div className="min-h-screen bg-[#020617] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
@@ -97,7 +49,7 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="glass-card sm:rounded-2xl p-6 sm:p-10 shadow-2xl">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form action={clientAction} className="space-y-6">
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-xl flex items-center gap-3">
                 <div className="shrink-0">⚠️</div>
@@ -115,6 +67,7 @@ export default function LoginPage() {
                 </div>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -140,6 +93,7 @@ export default function LoginPage() {
                 </div>
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -153,10 +107,10 @@ export default function LoginPage() {
             <div className="pt-2">
               <button
                 type="submit"
-                disabled={loading}
+                disabled={isPending}
                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg shadow-blue-600/20 text-sm font-semibold text-white bg-gradient-to-r from-blue-700 to-sky-600 hover:from-blue-600 hover:to-sky-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#020617] focus:ring-blue-600 transition-all duration-200 disabled:opacity-50"
               >
-                {loading ? (
+                {isPending ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-5 h-5 animate-spin" />
                     Signing in...
