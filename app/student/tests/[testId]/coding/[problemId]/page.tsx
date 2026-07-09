@@ -31,5 +31,9 @@ export default async function CodingProblemPage({
     ),
   };
 
-  return <CodeEditor problem={studentProblem as any} />;
+  // IMPORTANT: Next.js strict serialization sometimes fails on Prisma objects or Dates
+  // passed to Client Components. Convert to a plain JS object to prevent 500 errors.
+  const safeProblem = JSON.parse(JSON.stringify(studentProblem));
+
+  return <CodeEditor problem={safeProblem} />;
 }
