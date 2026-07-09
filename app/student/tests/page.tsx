@@ -1,28 +1,17 @@
 import { db } from "@/lib/db";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
 import { Code2, Clock, Users, CalendarDays, ArrowLeft } from "lucide-react";
 import { formatDate, getDifficultyColor } from "@/lib/utils";
 
 export default async function StudentTestsPage() {
-  const session = await auth();
-  if (!session) redirect("/login");
-
-  let tests;
-  try {
-    tests = await db.test.findMany({
-      where: { status: "ACTIVE" },
-      include: {
-        _count: { select: { codingProblems: true, questions: true } },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-  } catch (err: any) {
-    console.error("[StudentTestsPage] DB error fetching tests:", err?.message ?? err);
-    throw new Error("Unable to load tests. Please try again later.");
-  }
-
+  const tests = await db.test.findMany({
+    where: { status: "ACTIVE" },
+    include: {
+      _count: { select: { codingProblems: true, questions: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
 
   return (
     <div className="space-y-6">

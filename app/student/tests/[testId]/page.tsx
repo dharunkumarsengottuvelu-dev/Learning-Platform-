@@ -1,44 +1,23 @@
 import { db } from "@/lib/db";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { auth } from "@/lib/auth";
 import { Code2, Clock, CheckCircle2, ArrowRight } from "lucide-react";
 import { getDifficultyColor, formatDate } from "@/lib/utils";
 
 export default async function TestDetailPage({ params }: { params: Promise<{ testId: string }> }) {
-  const session = await auth();
-  if (!session) redirect("/login");
+  const { testId } = await params;
 
-  let testId: string;
-  try {
-    const resolved = await params;
-    testId = (resolved.testId ?? "").trim();
-  } catch (err) {
-    console.error("[TestDetailPage] Failed to resolve params:", err);
-    notFound();
-    return;
-  }
-
-  if (!testId) notFound();
-
-  let test;
-  try {
-    test = await db.test.findUnique({
-      where: { id: testId },
-      include: {
-        codingProblems: {
-          select: { id: true, title: true, difficulty: true, marks: true, _count: { select: { testCases: true } } },
-        },
-        questions: { select: { id: true, type: true, marks: true } },
+  const test = await db.test.findUnique({
+    where: { id: testId },
+    include: {
+      codingProblems: {
+        select: { id: true, title: true, difficulty: true, marks: true, _count: { select: { testCases: true } } },
       },
-    });
-  } catch (err: any) {
-    console.error("[TestDetailPage] DB error fetching test:", err?.message ?? err);
-    throw new Error("Unable to load test details. Please try again later.");
-  }
+      questions: { select: { id: true, type: true, marks: true } },
+    },
+  });
 
   if (!test) notFound();
-
 
   return (
     <div className="max-w-3xl space-y-6">
