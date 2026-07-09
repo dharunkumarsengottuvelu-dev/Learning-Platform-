@@ -24,14 +24,19 @@
 .DS_Store
 *.pem
 
-# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ============================================
+# ENVIRONMENT FILES — NEVER COMMIT THESE
+# All secrets must be set via Vercel/Render
+# dashboard environment variable settings.
+# ============================================
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
@@ -44,6 +49,3 @@ next-env.d.ts
 *.db
 *.db-journal
 *.sqlite
-
-.vercel
-.env*
