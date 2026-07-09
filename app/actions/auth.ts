@@ -5,7 +5,13 @@ import { AuthError } from "next-auth";
 
 export async function loginAction(formData: FormData) {
   try {
-    await signIn("credentials", formData);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: "/", // NextAuth v5 specific redirect mechanism
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
