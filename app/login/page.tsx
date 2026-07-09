@@ -34,22 +34,50 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      const result = await signIn("credentials", {
+      // IMPORTANT: Do NOT use redirect:false + window.location.href.
+      // That pattern creates a race condition: the browser may start navigating
+      // before the Set-Cookie header from the signIn response is committed to
+      // the browser's cookie jar, causing proxy.ts to see no token and send the
+      // user back to /login even though auth succeeded.
+      //
+      // Instead, we call signIn with redirect:false ONLY to check for credential
+      // errors first (wrong password etc.). If credentials are valid (no error),
+      // we call signIn again WITHOUT redirect:false so NextAuth issues a single
+      // HTTP 302 response that carries BOTH the Set-Cookie and the Location
+      // header atomically — the cookie is guaranteed to be set before the browser
+      // follows the redirect.
+      const check = await signIn("credentials", {
         email: email.trim(),
         password,
         redirect: false,
       });
-      if (result?.error) {
-        setError(getErrorMessage(result.error));
-      } else {
-        window.location.href = "/";
+
+      if (check?.error) {
+        // Credentials are wrong — show error message, stay on page
+        setError(getErrorMessage(check.error));
+        setLoading(false);
+        return;
       }
+
+      // Credentials are valid. Now do the real sign-in WITH server-side redirect.
+      // NextAuth will respond with a 302 that simultaneously sets the cookie and
+      // redirects to the callbackUrl — no race condition possible.
+      await signIn("credentials", {
+        email: email.trim(),
+        password,
+        callbackUrl: "/",
+        // redirect:true is the default — do not override it
+      });
+
+      // The line below is only reached if the browser blocks the redirect (very
+      // rare). Fallback using replace so browser history is clean.
+      window.location.replace("/");
     } catch {
       setError("Something went wrong. Please try again.");
-    } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-[#020617] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-x-hidden">
