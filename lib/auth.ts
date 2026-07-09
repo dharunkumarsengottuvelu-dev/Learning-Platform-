@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
@@ -12,17 +12,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/login",
   },
   useSecureCookies: process.env.NODE_ENV === "production",
-  cookies: {
-    sessionToken: {
-      name: process.env.NODE_ENV === "production" ? "__Secure-authjs.session-token" : "authjs.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-      },
-    },
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

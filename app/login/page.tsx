@@ -41,8 +41,9 @@ export default function LoginPage() {
       });
       if (result?.error) {
         setError(getErrorMessage(result.error));
-      } else if (result?.ok) {
-        window.location.href = "/";
+      } else {
+        router.push("/");
+        router.refresh();
       }
     } catch {
       setError("Something went wrong. Please try again.");
